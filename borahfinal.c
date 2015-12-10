@@ -26,7 +26,7 @@ int main( int argc, char * argv[] ) {
 	int currentbarstatus[5]={144, 144, 144, 144, 144}; //food, water, mood, clean, sleep
 	int c;
 	int new;
-	gfx_open(1050, 600, "Pet Game");
+	gfx_open(1050, 600, "TOMODACHI - Borah & Emily");
 
 
  	while(loop) {
