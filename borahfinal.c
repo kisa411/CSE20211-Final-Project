@@ -42,6 +42,7 @@ int main( int argc, char * argv[] ) {
 					//display food and pet eating
 					//increment food bar by ___ each time it is clicked
 					new=foodbar(currentbarstatus[0]);
+					currentbarstatus[0] = new;
 				case 2:
 					//water
 					//display water and pet drinking
