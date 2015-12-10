@@ -6,11 +6,16 @@
 
 void drawmenu();
 void drawstatus();
-int foodbar(int status); 
-int waterbar(int status);
-int moodbar(int status);
-int cleanbar(int status);
-int sleepbar(int status);
+int foodbarinc(int status, int arr[]); 
+int waterbarinc(int status, int arr[]);
+int moodbarinc(int status, int arr[]);
+int cleanbarinc(int status, int arr[]);
+int sleepbarinc(int status, int arr[]);
+int foodbardec(int status); 
+int waterbardec(int status);
+int moodbardec(int status);
+int cleanbardec(int status);
+int sleepbardec(int status);
 void initialbars();
 int click(int xpos, int ypos);
 
@@ -49,36 +54,37 @@ int main( int argc, char * argv[] ) {
 					//food
 					//display food and pet eating
 					//increment food bar by 5px each time it is clicked
-					new=foodbar(currentbarstatus[0]);
+					new=foodbarinc(currentbarstatus[0], currentbarstatus);
 					currentbarstatus[0] = new;
 					break;
 				case 2:
 					//water
 					//display water and pet drinking
 					//increment water bar by 5px each time it is clicked
-					new=waterbar(currentbarstatus[1]);
+					new=waterbarinc(currentbarstatus[1], currentbarstatus);
 					currentbarstatus[1] = new;
 					break;
 				case 3:
 					//toy
 					//display toy bouncing around
+					//clean, sleep, food, water bar decreases
 					//increment play bar by 5px each time it is clicked
-					new=moodbar(currentbarstatus[2]);
+					new=moodbarinc(currentbarstatus[2], currentbarstatus);
 					currentbarstatus[2] = new;
 					break;
 				case 4:
 					//clean
 					//move to bathroom automatically
 					//when cleaned, fill clean bar
-					new=cleanbar(currentbarstatus[3]);
+					new=cleanbarinc(currentbarstatus[3], currentbarstatus);
 					currentbarstatus[3] = new;
 					break;
 				case 5:
 					//sleep
 					//pet moves to bed and sleeps until user wakes it
-					//food, water, and fun all go down a little
+					//food, water, and fun decreases
 					//sleep bar incremented by 5px depending on how long it sleeps
-					new=sleepbar(currentbarstatus[4]);
+					new=sleepbarinc(currentbarstatus[4], currentbarstatus);
 					currentbarstatus[4] = new;
 					break;
 				case 6:
@@ -206,7 +212,7 @@ void initialbars() {
 }
 
 
-int foodbar(int status) {
+int foodbarinc(int status, int currentbarstatus[]) {
 
    	int inc; //amount to increment
 	int newstatus;
@@ -243,7 +249,7 @@ int foodbar(int status) {
 
 }
 
-int waterbar(int status) {
+int waterbarinc(int status, int currentbarstatus[]) {
 
    	int inc; //amount to increment
 	int newstatus;
@@ -280,7 +286,7 @@ int waterbar(int status) {
 
 }
 
-int moodbar(int status) {
+int moodbarinc(int status, int currentbarstatus[]) {
 
    	int inc; //amount to increment
 	int newstatus;
@@ -311,6 +317,8 @@ int moodbar(int status) {
 			}
 	}
 
+
+	//ball toy bouncing around screen
 	double x, y, dx, dy;
 	char c = '0';
 
@@ -363,7 +371,7 @@ int moodbar(int status) {
 
 }
 
-int cleanbar(int status) {
+int cleanbarinc(int status, int currentbarstatus[]) {
 
    	int inc; //amount to increment
 	int newstatus;
@@ -403,7 +411,7 @@ int cleanbar(int status) {
 
 }
 
-int sleepbar(int status) {
+int sleepbarinc(int status, int currentbarstatus[]) {
 
    	int inc; //amount to increment
 	int newstatus;
@@ -436,11 +444,176 @@ int sleepbar(int status) {
 
 	newstatus=status+inc;
 
+	foodbardec(currentbarstatus[0]);
+	waterbardec(currentbarstatus[1]);
+	moodbardec(currentbarstatus[2]);
+
 	return newstatus;
 
 }
 
-			   	
+int foodbardec(int status) {
+
+   	int dec; //amount to decrement
+	int newstatus;
+	
+
+	gfx_color(51, 255, 255);  //blue
+
+	if (status<=0) {   //pet dies if bar reaches 0
+	   	gfx_cleararea(853, 83, 144, 14);
+		return 0; //?
+	}
+	else {
+	   	//decrement food bar
+	   	dec=144/10;
+			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+			   	gfx_cleararea(853, 83, status, 14);
+	     	 	gfx_rectangle(853, 83, status-dec, 14);
+			}
+			else if (status-dec<0.33*144 && status-dec>0) {
+			   	gfx_color(255, 51, 51);   //red
+			   	gfx_cleararea(853, 83, status, 14);
+			   	gfx_rectangle(853, 83, status-dec, 14);
+			}
+	}
+
+	newstatus=status-dec;
+
+	return newstatus;
+
+}	   	
+
+int waterbardec(int status) {
+
+   	int dec; //amount to decrement
+	int newstatus;
+	
+
+	gfx_color(51, 255, 255);  //blue
+
+	if (status<=0) {   //pet dies if bar reaches 0
+	   	gfx_cleararea(853, 83, 144, 14);
+		return 0; //?
+	}
+	else {
+	   	//decrement water bar
+	   	dec=144/10;
+			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+			   	gfx_cleararea(853, 83, status, 14);
+	     	 	gfx_rectangle(853, 83, status-dec, 14);
+			}
+			else if (status-dec<0.33*144 && status-dec>0) {
+			   	gfx_color(255, 51, 51);   //red
+			   	gfx_cleararea(853, 83, status, 14);
+			   	gfx_rectangle(853, 83, status-dec, 14);
+			}
+	}
+
+	newstatus=status-dec;
+
+	return newstatus;
+
+}	   	
+
+int moodbardec(int status) {
+
+   	int dec; //amount to decrement
+	int newstatus;
+	
+
+	gfx_color(51, 255, 255);  //blue
+
+	if (status<=0) {   //pet dies if bar reaches 0
+	   	gfx_cleararea(853, 83, 144, 14);
+		return 0; //?
+	}
+	else {
+	   	//decrement mood bar
+	   	dec=144/10;
+			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+			   	gfx_cleararea(853, 83, status, 14);
+	     	 	gfx_rectangle(853, 83, status-dec, 14);
+			}
+			else if (status-dec<0.33*144 && status-dec>0) {
+			   	gfx_color(255, 51, 51);   //red
+			   	gfx_cleararea(853, 83, status, 14);
+			   	gfx_rectangle(853, 83, status-dec, 14);
+			}
+	}
+
+	newstatus=status-dec;
+
+	return newstatus;
+
+}	   	
+
+int cleanbardec(int status) {
+
+   	int dec; //amount to decrement
+	int newstatus;
+	
+
+	gfx_color(51, 255, 255);  //blue
+
+	if (status<=0) {   //pet dies if bar reaches 0
+	   	gfx_cleararea(853, 83, 144, 14);
+		return 0; //?
+	}
+	else {
+	   	//decrement clean bar
+	   	dec=144/10;
+			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+			   	gfx_cleararea(853, 83, status, 14);
+	     	 	gfx_rectangle(853, 83, status-dec, 14);
+			}
+			else if (status-dec<0.33*144 && status-dec>0) {
+			   	gfx_color(255, 51, 51);   //red
+			   	gfx_cleararea(853, 83, status, 14);
+			   	gfx_rectangle(853, 83, status-dec, 14);
+			}
+	}
+
+	newstatus=status-dec;
+
+	return newstatus;
+
+}	   	
+
+int sleepbardec(int status) {
+
+   	int dec; //amount to decrement
+	int newstatus;
+	
+
+	gfx_color(51, 255, 255);  //blue
+
+	if (status<=0) {   //pet dies if bar reaches 0
+	   	gfx_cleararea(853, 83, 144, 14);
+		return 0; //?
+	}
+	else {
+	   	//decrement sleep bar
+	   	dec=144/10;
+			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+			   	gfx_cleararea(853, 83, status, 14);
+	     	 	gfx_rectangle(853, 83, status-dec, 14);
+			}
+			else if (status-dec<0.33*144 && status-dec>0) {
+			   	gfx_color(255, 51, 51);   //red
+			   	gfx_cleararea(853, 83, status, 14);
+			   	gfx_rectangle(853, 83, status-dec, 14);
+			}
+	}
+
+	newstatus=status-dec;
+
+	return newstatus;
+
+}	   	
+
+
+
 
 
 
