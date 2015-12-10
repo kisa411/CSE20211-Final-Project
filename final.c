@@ -365,6 +365,10 @@ int moodbarinc(int status, int currentbarstatus[]) {
 		}	
 	} while (c != 'q'); //do-while 
 
+	foodbardec(currentbarstatus[0]);
+	waterbardec(currentbarstatus[1]);
+	sleepbardec(currentbarstatus[4]);
+
 	newstatus=status+inc;
 
 	return newstatus;
@@ -373,7 +377,7 @@ int moodbarinc(int status, int currentbarstatus[]) {
 
 int cleanbarinc(int status, int currentbarstatus[]) {
 
-   	int inc; //amount to increment
+   	// int inc; //amount to increment
 	int newstatus;
 
 	// Read the image data into memory
@@ -390,18 +394,18 @@ int cleanbarinc(int status, int currentbarstatus[]) {
 	}
 	else {
 	   	//increment clean bar after cleaning
-	   	inc=144/10;
+	   	// inc=144-(status);
 			if (status+inc>=144) { //if bar value goes over 144, just set to 144
 				gfx_rectangle(853, 83, 144, 14);
 	   		}
 		   	else if (status+inc<144 && status+inc>0.33*144) {
 			   	gfx_cleararea(853, 83, status, 14);
-	     	 	gfx_rectangle(853, 83, inc+status, 14);
+	     	 	gfx_rectangle(853, 83, 144, 14); //fill up bar
 			}
 			else if (status+inc<0.33*144 && status+inc>0) {
 			   	gfx_color(255, 51, 51);   //red
 			   	gfx_cleararea(853, 83, status, 14);
-			   	gfx_rectangle(853, 83, inc+status, 14);
+			   	gfx_rectangle(853, 83, 144, 14); //fill up bar
 			}
 	}
 
