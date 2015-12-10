@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "gfx5.c"
+#include "gfx5.h"
 #include "gfxe.h"
 
 void drawmenu();
@@ -8,7 +8,7 @@ void drawstatus();
 
 int main( int argc, char * argv[] ) {
 
-   gfx_open( 1050, 600, "image??" );
+   gfx_open( 1050, 600, "Tomogatchi Borah & Emily" );
 
    while(1) {
 	
@@ -28,6 +28,7 @@ int main( int argc, char * argv[] ) {
    }
 }
 
+
 void drawmenu() {
 
 	int w=gfx_textpixelwidth("MENU", "lucidasans-bold-18");
@@ -46,12 +47,18 @@ void drawmenu() {
 	gfx_rectangle(830, 350, 190, 220);
 
 	//buttons
-	gfx_rectangle(837, 381, 84, 57);
-	gfx_rectangle(837, 444, 84, 57);
-	gfx_rectangle(837, 507, 84, 57);
-	gfx_rectangle(929, 381, 84, 57);
-	gfx_rectangle(929, 444, 84, 57);
-	gfx_rectangle(929, 507, 84, 57);
+	gfx_rectangle(837, 381, 84, 57); //food
+	gfx_text(837+30, 381+14, "FOOD");
+	gfx_rectangle(837, 444, 84, 57); //water
+	gfx_text(837+30, 444+14, "WATER");
+	gfx_rectangle(837, 507, 84, 57); //play
+	gfx_text(837+30, 507+14, "PLAY"); 
+	gfx_rectangle(929, 381, 84, 57); //clean
+	gfx_text(929+30, 381+14, "CLEAN");
+	gfx_rectangle(929, 444, 84, 57); //sleep
+	gfx_text(929+30, 444+14, "SLEEP");
+	gfx_rectangle(929, 507, 84, 57); //quit
+	gfx_text(929+30, 507+14, "QUIT");
 
 }
 
