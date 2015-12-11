@@ -776,12 +776,12 @@ int sleepbardec(int status) {
 	   	//decrement sleep bar
 	   	dec=144/10;
 			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
-			   	gfx_cleararea(853, 283,144 14);
+			   	gfx_cleararea(853, 283, 144, 14);
 	     	 	gfx_fill_rectangle(853, 283, status-dec, 14);
 			}
 			else if (status-dec<0.33*144 && status-dec>0) {
 			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 283,144 14);
+			   	gfx_cleararea(853, 283, 144, 14);
 			   	gfx_fill_rectangle(853, 283, status-dec, 14);
 			}
 	}
