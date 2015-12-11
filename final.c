@@ -35,7 +35,7 @@ int main( int argc, char * argv[] ) {
 	initialbars();
 	
 	// Read the image data into memory
-	//unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+	//unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
 	   
 	// Draw the image on screen
 	//printRAWImage ( 0, 0, 800, 600, bufferPtr );
@@ -540,7 +540,7 @@ int moodbarinc(int status) {
 // 		currentbars(currentbarstatus);
 
 // 		// Read the image data into memory
-// 		//unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+// 		//unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
 	   
 // 		// Draw the image on screen
 // 		//printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
