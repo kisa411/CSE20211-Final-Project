@@ -27,7 +27,7 @@ int main( int argc, char * argv[] ) {
 	int currentbarstatus[5]={144, 144, 144, 144, 144}; //food, water, mood, clean, sleep
 	int c;
 	int new;
-	gfx_open(1050, 600, "TOMODACHI - Borah & Emily");
+	gfx_open(1050, 600, "TAMAGOTCHI - Borah & Emily");
 
 	drawmenu();
 	drawstatus();
@@ -136,7 +136,7 @@ int main( int argc, char * argv[] ) {
 					// Draw the image on screen
 					printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
 					free(bufferPtr);
-					
+
 					//sleep bar incremented by 5px depending on how long it sleeps
 					new=sleepbarinc(currentbarstatus[4], currentbarstatus);
 					currentbarstatus[4] = new;
