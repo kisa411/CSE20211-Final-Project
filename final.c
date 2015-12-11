@@ -18,7 +18,7 @@ int cleanbardec(int status);
 int sleepbardec(int status);
 void initialbars();
 int click(int xpos, int ypos);
-
+void balltoy();
 
 int main( int argc, char * argv[] ) {
 
@@ -227,11 +227,9 @@ void drawstatus() {
 	ypos=50;
 
 	//label
+	gfx_color(255, 255, 255);
 	gfx_changefont("lucidasans-bold-18");
 	gfx_text(xpos, ypos, "STATUS");
-
-
-  	gfx_color(255, 255, 255);
 
 	//draw box
 	gfx_rectangle(830, 30, 190, 290);
@@ -384,8 +382,21 @@ void balltoy() {
 	double x, y, dx, dy;
 	char c = '0';
 
+	drawmenu();
+	drawstatus();
+
 	//do random direction 
 	do {
+		drawmenu();
+		drawstatus();
+
+		// Read the image data into memory
+		unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+	   
+		// Draw the image on screen
+		printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+		free(bufferPtr);
+
 		gfx_color(143, 160, 215);
 
 		gfx_fill_circle(x, y, 20); //draw circle while changing its coordinates by specified random amount
