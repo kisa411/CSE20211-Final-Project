@@ -6,19 +6,20 @@
 
 void drawmenu();
 void drawstatus();
-int foodbarinc(int status, int arr[]); 
-int waterbarinc(int status, int arr[]);
-int moodbarinc(int status, int arr[]);
-int cleanbarinc(int status, int arr[]);
-int sleepbarinc(int status, int arr[]);
+int foodbarinc(int status); 
+int waterbarinc(int status);
+int moodbarinc(int status);
+int cleanbarinc(int status);
+int sleepbarinc(int status);
 int foodbardec(int status); 
 int waterbardec(int status);
 int moodbardec(int status);
 int cleanbardec(int status);
 int sleepbardec(int status);
 void initialbars();
+void currentbars(int array[]);
 int click(int xpos, int ypos);
-
+void balltoy();
 
 int main( int argc, char * argv[] ) {
 
@@ -34,11 +35,11 @@ int main( int argc, char * argv[] ) {
 	initialbars();
 	
 	// Read the image data into memory
-	unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+	//unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
 	   
 	// Draw the image on screen
-	printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
-	free(bufferPtr);
+	//printRAWImage ( 0, 0, 800, 600, bufferPtr );
+	//free(bufferPtr);
 
 	while (loop) {
 
@@ -59,14 +60,14 @@ int main( int argc, char * argv[] ) {
 					//display food and pet eating
 					
 					// Go back to living room
-					unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
-					   
+				 
 					// Draw the image on screen
-					printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
-					free(bufferPtr);
+					//printRAWImage ( 0, 0, 800, 600, bufferPtr );
+					printf("livingroom\n");
 
-					//increment food bar by 5px each time it is clicked
+					//increment food bar by +20px each time it is clicked
 					new=foodbarinc(currentbarstatus[0], currentbarstatus);
+
 					currentbarstatus[0] = new;
 					if (new<=0) {
 							printf("Your pet died.\n");
@@ -78,13 +79,12 @@ int main( int argc, char * argv[] ) {
 					//display water and pet drinking
 					
 					// Go back to living room
-					unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
-					   
+				
 					// Draw the image on screen
-					printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
-					free(bufferPtr);
+					//printRAWImage ( 0, 0, 800, 600, bufferPtr );
+					printf("livingroom\n");
 					
-					//increment water bar by 5px each time it is clicked
+					//increment water bar by +20px each time it is clicked
 					new=waterbarinc(currentbarstatus[1], currentbarstatus);
 					currentbarstatus[1] = new;
 					if (new<=0) {
@@ -98,14 +98,16 @@ int main( int argc, char * argv[] ) {
 					//clean, sleep, food, water bar decreases
 					
 					// Go back to living room
-					unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
-					   
+				
 					// Draw the image on screen
-					printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
-					free(bufferPtr);
+					//printRAWImage ( 0, 0, 800, 600, bufferPtr );
+					printf("livingroom\n");
+				
 
-					//increment play bar by 5px each time it is clicked
+					//increment play bar by +20px each time it is clicked
 					new=moodbarinc(currentbarstatus[2], currentbarstatus);
+
+					//decrement food, water, and sleep by -20 px
 					balltoy();
 					currentbarstatus[2] = new;
 					if (new<=0) {
@@ -130,11 +132,11 @@ int main( int argc, char * argv[] ) {
 					//food, water, and fun decreases
 
 					// Go back to living room
-					unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
-					   
+					
 					// Draw the image on screen
-					printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
-					free(bufferPtr);
+					//printRAWImage ( 0, 0, 800, 600, bufferPtr );
+					printf("livingroom\n");
+					
 
 					//sleep bar incremented by 5px depending on how long it sleeps
 					new=sleepbarinc(currentbarstatus[4], currentbarstatus);
@@ -235,9 +237,9 @@ void drawmenu() {
 	gfx_text(xpos, 381+16, "FOOD"); 
 
 	//clean button
-	b=gfx_textpixelwidth("CLEAN", "lucidasans-bold-12");
+	b=gfx_textpixelwidth("PLAY", "lucidasans-bold-12");
 	xpos=837+((84-b)/2);
-	gfx_text(xpos, 444+16, "CLEAN"); 
+	gfx_text(xpos, 444+16, "PLAY"); 
 
 	//sleep button
 	c=gfx_textpixelwidth("SLEEP", "lucidasans-bold-12");
@@ -251,9 +253,9 @@ void drawmenu() {
 	gfx_text(xpos, 381+16, "WATER"); 
 
 	//play button
-	e=gfx_textpixelwidth("PLAY", "lucidasans-bold-12");
+	e=gfx_textpixelwidth("CLEAN", "lucidasans-bold-12");
 	xpos=929+((84-e)/2);
-	gfx_text(xpos, 444+16, "PLAY"); 
+	gfx_text(xpos, 444+16, "CLEAN"); 
 
 	//quit button
 	f=gfx_textpixelwidth("QUIT", "lucidasans-bold-12");
@@ -279,11 +281,9 @@ void drawstatus() {
 	ypos=50;
 
 	//label
+	gfx_color(255, 255, 255);
 	gfx_changefont("lucidasans-bold-18");
 	gfx_text(xpos, ypos, "STATUS");
-
-
-  	gfx_color(255, 255, 255);
 
 	//draw box
 	gfx_rectangle(830, 30, 190, 290);
@@ -313,6 +313,24 @@ void initialbars() {
    }
 
 }
+
+void currentbars(int current[]) {
+
+   	int i;
+	status=.33*144;
+
+	for (i=0; i<5; i++) {
+		if (current[i]<=status) {
+			gfx_color(255, 51, 51); //red
+			gfx_fill_rectangle(853, 83+(50*i), current[i], 14);
+		}
+		else {
+			gfx_color(51, 255, 255); //blue 
+			gfx_fill_rectangle(853, 83+(50*i), current[i], 14);
+		}
+	}
+}
+
 
 
 int foodbarinc(int status, int currentbarstatus[]) {
@@ -437,9 +455,17 @@ void balltoy() {
 	char c = '0';
 
 
-	
 	//do random direction 
 	do {
+		drawmenu();
+		currentbars();
+
+		// Read the image data into memory
+		//unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+	   
+		// Draw the image on screen
+		//printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+	
 		gfx_color(143, 160, 215);
 
 		gfx_fill_circle(x, y, 20); //draw circle while changing its coordinates by specified random amount
@@ -491,10 +517,10 @@ int cleanbarinc(int status, int currentbarstatus[]) {
 	int newstatus;
 
 	// Read the image data into memory
-	unsigned char * bufferPtr = readRAWImage( "bathroom.bmp", 54 ); //changes background to bathroom
-	   
+	//unsigned char * bufferPtr = readRAWImage( "bathroom.bmp", 54 ); //changes background to bathroom
+	printf("bathroom\n"); 
 	// Draw the image on screen
-	printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+	//printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
 
 	gfx_color(51, 255, 255);  //blue
 
