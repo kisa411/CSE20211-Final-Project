@@ -81,7 +81,7 @@ int main( int argc, char * argv[] ) {
 
 					currentbarstatus[0] = new;
 					if (new<=0) {
-							printf("Your pet died.\n");
+							printf("Your pet died. THE END\n");
 							return 0;
 						}
 					break;
@@ -103,7 +103,7 @@ int main( int argc, char * argv[] ) {
 					new=waterbarinc(currentbarstatus[1]);
 					currentbarstatus[1] = new;
 					if (new<=0) {
-							printf("Your pet died.\n");
+							printf("Your pet died. THE END\n");
 							return 0;
 						}
 					break;
@@ -135,7 +135,7 @@ int main( int argc, char * argv[] ) {
 
 					
 					if (new<=0) {
-							printf("Your pet died.\n");
+							printf("Your pet died. THE END\n");
 							return 0;
 						}
 					break;
@@ -150,7 +150,7 @@ int main( int argc, char * argv[] ) {
 					new=cleanbarinc(currentbarstatus[3]);
 					currentbarstatus[3] = new;
 					if (new<=0) {
-							printf("Your pet died.\n");
+							printf("Your pet died. THE END\n");
 							return 0;
 						}
 					break;
@@ -180,7 +180,7 @@ int main( int argc, char * argv[] ) {
 					moodbardec(currentbarstatus[2]);
 
 					if (new<=0) {
-							printf("Your pet died.\n");
+							printf("Your pet died. THE END\n");
 							return 0;
 						}
 					break;
