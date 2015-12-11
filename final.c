@@ -409,7 +409,7 @@ int foodbarinc(int status) {
 	   		}
 		   	else if (status+inc<144 && status+inc>0.33*144) {
 			   	gfx_cleararea(853, 83, status, 14);
-	     	 	gfx_rectangle(853, 83, inc+status, 14);
+	     	 		gfx_rectangle(853, 83, inc+status, 14);
 			}
 			else if (status+inc<0.33*144 && status+inc>0) {
 			   	gfx_color(255, 51, 51);   //red
@@ -445,8 +445,10 @@ int waterbarinc(int status) {
 				gfx_rectangle(853, 133, 144, 14);
 	   		}
 		   	else if (status+inc<144 && status+inc>0.33*144) {
+
 			   	gfx_cleararea(853, 133, status, 14);
-	     	 	gfx_rectangle(853, 133, inc+status, 14);
+	     	 		gfx_rectangle(853, 133, inc+status, 14);
+
 			}
 			else if (status+inc<0.33*144 && status+inc>0) {
 			   	gfx_color(255, 51, 51);   //red
@@ -483,7 +485,7 @@ int moodbarinc(int status) {
 	   		}
 		   	else if (status+inc<144 && status+inc>0.33*144) {
 			   	gfx_cleararea(853, 183, status, 14);
-	     	 	gfx_rectangle(853, 183, inc+status, 14);
+	     	 		gfx_rectangle(853, 183, inc+status, 14);
 			}
 			else if (status+inc<0.33*144 && status+inc>0) {
 			   	gfx_color(255, 51, 51);   //red
@@ -492,9 +494,6 @@ int moodbarinc(int status) {
 			}
 	}
 
-	foodbardec(currentbarstatus[0]);
-	waterbardec(currentbarstatus[1]);
-	sleepbardec(currentbarstatus[4]);
 
 	newstatus=status+inc;
 
@@ -646,10 +645,6 @@ int sleepbarinc(int status) {
 
 	newstatus=status+inc;
 
-	foodbardec(currentbarstatus[0]);
-	waterbardec(currentbarstatus[1]);
-	moodbardec(currentbarstatus[2]);
-
 	return newstatus;
 
 }
@@ -671,7 +666,7 @@ int foodbardec(int status) {
 	   	dec=144/10;
 			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
 			   	gfx_cleararea(853, 83, status, 14);
-	     	 	gfx_rectangle(853, 83, status-dec, 14);
+	     	 		gfx_rectangle(853, 83, status-dec, 14);
 			}
 			else if (status-dec<0.33*144 && status-dec>0) {
 			   	gfx_color(255, 51, 51);   //red
@@ -703,7 +698,7 @@ int waterbardec(int status) {
 	   	dec=144/10;
 			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
 			   	gfx_cleararea(853, 133, status, 14);
-	     	 	gfx_rectangle(853, 133, status-dec, 14);
+	     	 		gfx_rectangle(853, 133, status-dec, 14);
 			}
 			else if (status-dec<0.33*144 && status-dec>0) {
 			   	gfx_color(255, 51, 51);   //red
@@ -734,8 +729,8 @@ int moodbardec(int status) {
 	   	//decrement mood bar
 	   	dec=144/10;
 			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
-			   	gfx_cleararea(853, 183, status, 14);
-	     	 	gfx_rectangle(853, 183, status-dec, 14);
+				gfx_cleararea(853, 183, status, 14);
+	     	 		gfx_rectangle(853, 183, status-dec, 14);
 			}
 			else if (status-dec<0.33*144 && status-dec>0) {
 			   	gfx_color(255, 51, 51);   //red
@@ -766,8 +761,8 @@ int cleanbardec(int status) {
 	   	//decrement clean bar
 	   	dec=144/10;
 			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
-			   	gfx_cleararea(853, 233, status, 14);
-	     	 	gfx_rectangle(853, 233, status-dec, 14);
+				gfx_cleararea(853, 233, status, 14);
+	     	 		gfx_rectangle(853, 233, status-dec, 14);
 			}
 			else if (status-dec<0.33*144 && status-dec>0) {
 			   	gfx_color(255, 51, 51);   //red
@@ -799,7 +794,7 @@ int sleepbardec(int status) {
 	   	dec=144/10;
 			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
 			   	gfx_cleararea(853, 283, status, 14);
-	     	 	gfx_rectangle(853, 283, status-dec, 14);
+	     	 		gfx_rectangle(853, 283, status-dec, 14);
 			}
 			else if (status-dec<0.33*144 && status-dec>0) {
 			   	gfx_color(255, 51, 51);   //red
