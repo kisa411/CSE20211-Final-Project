@@ -126,7 +126,7 @@ int main( int argc, char * argv[] ) {
 					//increment play bar by +20px each time it is clicked
 					new=moodbarinc(currentbarstatus[2]);
 					currentbarstatus[2] = new;
-					balltoy();
+					balltoy(currentbarstatus);
 
 					//decrement food, water, and sleep by -20 px
 					foodbardec(currentbarstatus[0]);
@@ -354,8 +354,7 @@ void initialbars() {
 
 void currentbars(int current[]) {
 
-   	int i;
-	status=.33*144;
+   	int i, status=.33*144;
 
 	for (i=0; i<5; i++) {
 		if (current[i]<=status) {
