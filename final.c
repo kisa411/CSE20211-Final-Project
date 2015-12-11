@@ -27,7 +27,7 @@ int main( int argc, char * argv[] ) {
 	int currentbarstatus[5]={144, 144, 144, 144, 144}; //food, water, mood, clean, sleep
 	int c;
 	int new;
-	gfx_open(1050, 600, "TOMODACHI - Borah & Emily");
+	gfx_open(1050, 600, "TAMAGOTCHI - Borah & Emily");
 
 	drawmenu();
 	drawstatus();
@@ -50,31 +50,68 @@ int main( int argc, char * argv[] ) {
 		   if (c==1) {    //return for left click
 			   xpos=gfx_xpos();
 			   ypos=gfx_ypos();
+
 			   action=click(xpos, ypos); 
 			  
 			switch (action) {
 				case 1:
 					//food
 					//display food and pet eating
+					
+					// Go back to living room
+					unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+					   
+					// Draw the image on screen
+					printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+					free(bufferPtr);
+
 					//increment food bar by 5px each time it is clicked
 					new=foodbarinc(currentbarstatus[0], currentbarstatus);
 					currentbarstatus[0] = new;
+					if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
 					break;
 				case 2:
 					//water
 					//display water and pet drinking
+					
+					// Go back to living room
+					unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+					   
+					// Draw the image on screen
+					printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+					free(bufferPtr);
+					
 					//increment water bar by 5px each time it is clicked
 					new=waterbarinc(currentbarstatus[1], currentbarstatus);
 					currentbarstatus[1] = new;
+					if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
 					break;
 				case 3:
 					//play
 					//display toy bouncing around
 					//clean, sleep, food, water bar decreases
+					
+					// Go back to living room
+					unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+					   
+					// Draw the image on screen
+					printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+					free(bufferPtr);
+
 					//increment play bar by 5px each time it is clicked
 					new=moodbarinc(currentbarstatus[2], currentbarstatus);
 					balltoy();
 					currentbarstatus[2] = new;
+					if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
 					break;
 				case 4:
 					//clean
@@ -82,14 +119,31 @@ int main( int argc, char * argv[] ) {
 					//when cleaned, fill clean bar
 					new=cleanbarinc(currentbarstatus[3], currentbarstatus);
 					currentbarstatus[3] = new;
+					if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
+
 					break;
 				case 5:
 					//sleep
 					//pet moves to bed and sleeps until user wakes it
 					//food, water, and fun decreases
+
+					// Go back to living room
+					unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+					   
+					// Draw the image on screen
+					printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+					free(bufferPtr);
+
 					//sleep bar incremented by 5px depending on how long it sleeps
 					new=sleepbarinc(currentbarstatus[4], currentbarstatus);
 					currentbarstatus[4] = new;
+					if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
 					break;
 				case 6:
 					//quit
@@ -98,7 +152,6 @@ int main( int argc, char * argv[] ) {
 			   }
 		   }
 	   }
-
    }
 }
 
@@ -382,8 +435,6 @@ void balltoy() {
 	double x, y, dx, dy;
 	char c = '0';
 
-	drawmenu();
-	drawstatus();
 
 	//do random direction 
 	do {
