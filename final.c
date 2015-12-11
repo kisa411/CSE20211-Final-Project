@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> //for 'usleep function'
-#include "gfx5.c"
+#include "gfx5.h"
 #include "gfxe.h"
 
 void drawmenu();
@@ -37,7 +37,7 @@ int main( int argc, char * argv[] ) {
 	unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
 	   
 	// Draw the image on screen
-	printRAWImage ( 0, 0, 800, 600, bufferPtr );
+	printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
 	free(bufferPtr);
 
 	while (loop) {
@@ -140,10 +140,14 @@ void drawmenu() {
 	int a, b, c, d, e, f;
 	unsigned char *food=readRAWImage("food.bmp", 54);
 	unsigned char *water=readRAWImage("water.bmp", 54);
+	unsigned char *quit=readRAWImage("quit.bmp", 54);
+	unsigned char *play=readRAWImage("ball.bmp", 54);
 	//ask about picture colors and why they show up weird? 
 
-	printRAWImage ( 837, 381, 84, 57, food );
-	printRAWImage ( 929, 381, 84, 57, water );
+	printRAWImage ( 837, 381, 84, 57, (char *) food );
+	printRAWImage ( 929, 381, 84, 57, (char *) water );
+	printRAWImage ( 929, 507, 84, 57, (char *) quit );
+	printRAWImage ( 929, 444, 84, 57, (char *) play );
 
 	xpos=830+((190-w)/2);
 
