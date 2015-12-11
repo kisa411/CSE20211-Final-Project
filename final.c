@@ -236,7 +236,10 @@ void drawmenu() {
 	unsigned char *play=readRAWImage("ball.bmp", 54);
 	unsigned char *clean=readRAWImage("bubbles-hi.bmp", 54);
 	unsigned char *sleep=readRAWImage("sleep1.bmp", 54);
-	//ask about picture colors and why they show up weird? 
+
+	//big box
+	gfx_color(102, 102, 255);
+	gfx_fill_rectangle(830, 350, 190, 220);
 
 	//icon images
 	printRAWImage ( 837, 381, 84, 57, (char *) food );
@@ -252,8 +255,6 @@ void drawmenu() {
 	xpos=830+((190-w)/2);
 	gfx_text(xpos, 370, "MENU");
    	
-	//big box
-	gfx_fill_rectangle(830, 350, 190, 220);
 
 	//buttons
 	//button boxes
@@ -318,13 +319,14 @@ void drawstatus() {
 	xpos=830+((190-w)/2);
 	ypos=50;
 
+	//draw box
+	gfx_color(102, 102, 255);
+	gfx_fill_rectangle(830, 30, 190, 290);
+
 	//label
-	gfx_color(255, 255, 255);
+	gfx_color(0, 0, 0);
 	gfx_changefont("lucidasans-bold-18");
 	gfx_text(xpos, ypos, "STATUS");
-
-	//draw box
-	gfx_fill_rectangle(830, 30, 190, 290);
 
 	//draw bars
 	for (i=0; i<5; i++) {
@@ -738,7 +740,7 @@ int cleanbardec(int status) {
 
 	if (status<=0) {   //pet dies if bar reaches 0
 	   	gfx_cleararea(853, 233, 144, 14);
-		return 0; //?
+		return 0; 
 	}
 	else {
 	   	//decrement clean bar
