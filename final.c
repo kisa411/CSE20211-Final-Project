@@ -27,7 +27,7 @@ int main( int argc, char * argv[] ) {
 	int xpos, ypos, loop=1, action;
 	int currentbarstatus[5]={100, 100, 100, 100, 100}; //food, water, mood, clean, sleep
 	int c;
-	int new;
+	int new, newfood, newwater, newmood, newsleep;
 	gfx_open(1050, 600, "TAMAGOTCHI - Borah & Emily");
 
 	drawmenu();
@@ -129,9 +129,12 @@ int main( int argc, char * argv[] ) {
 					balltoy(currentbarstatus);
 
 					//decrement food, water, and sleep by -20 px
-					foodbardec(currentbarstatus[0]);
-					waterbardec(currentbarstatus[1]);
-					sleepbardec(currentbarstatus[4]);
+					newfood = foodbardec(currentbarstatus[0]);
+					currentbarstatus[0] = newfood;
+					newwater = waterbardec(currentbarstatus[1]);
+					currentbarstatus[1] = newwater;
+					newsleep = sleepbardec(currentbarstatus[4]);
+					currentbarstatus[4] = newsleep;
 
 					
 					if (new<=0) {
@@ -170,14 +173,17 @@ int main( int argc, char * argv[] ) {
 					// free( pet );
 
 					//when sleep, fill sleep bar
-					new=sleepbarinc(currentbarstatus[4]);
+					new = sleepbarinc(currentbarstatus[4]);
 					currentbarstatus[4] = new;
 
 
 					//decrement food, water, mood by -20px
-					foodbardec(currentbarstatus[0]);
-					waterbardec(currentbarstatus[1]);
-					moodbardec(currentbarstatus[2]);
+					newfood = foodbardec(currentbarstatus[0]);
+					currentbarstatus[0] = newfood;
+					newwater = waterbardec(currentbarstatus[1]);
+					currentbarstatus[1] = newwater;
+					newmood = moodbardec(currentbarstatus[2]);
+					currentbarstatus[2] = newmood;
 
 					if (new<=0) {
 							printf("Your pet died. THE END\n");
@@ -250,7 +256,7 @@ void drawmenu() {
 	printRAWImage ( 837, 507, 84, 57, (char *) sleep );
 
 	//label
-	gfx_color(255, 255, 255);
+	gfx_color(0, 0, 0);
 	gfx_changefont("lucidasans-bold-18");
 	xpos=830+((190-w)/2);
 	gfx_text(xpos, 370, "MENU");
@@ -349,7 +355,7 @@ void initialbars() {
 
    gfx_color(51, 255, 255);
    for (i=0; i<5; i++) {
-   	gfx_fill_rectangle(853, 83+(50*i), 144, 14); //bar is 144 px long
+   	gfx_fill_rectangle(853, 83+(50*i), 100, 14); //bar is 100 px long
    }
 
 }
