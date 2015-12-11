@@ -35,7 +35,7 @@ int main( int argc, char * argv[] ) {
 	   unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
 	   
 	   // Draw the image on screen
-	   printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+	   printRAWImage ( 0, 0, 800, 600, bufferPtr );
 
 	   drawmenu();
 	   drawstatus();
@@ -151,17 +151,17 @@ void drawmenu() {
 
 	//buttons
 	gfx_rectangle(837, 381, 84, 57); //food button
-	gfx_text(837+12, 381+35, "FOOD"); //button label
+	gfx_text(837+30, 381+14, "FOOD"); //button label
 	gfx_rectangle(837, 444, 84, 57); //water button
-	gfx_text(837+8, 444+35, "WATER"); //button label
+	gfx_text(837+30, 444+14, "WATER"); //button label
 	gfx_rectangle(837, 507, 84, 57); //play button
-	gfx_text(837+15, 507+35, "PLAY"); //button label
+	gfx_text(837+30, 507+14, "PLAY"); //button label
 	gfx_rectangle(929, 381, 84, 57); //clean button
-	gfx_text(929+10, 381+35, "CLEAN"); //button label
+	gfx_text(929+30, 381+14, "CLEAN"); //button label
 	gfx_rectangle(929, 444, 84, 57); //sleep button
-	gfx_text(929+12, 444+35, "SLEEP"); //button label
+	gfx_text(929+30, 444+14, "SLEEP"); //button label
 	gfx_rectangle(929, 507, 84, 57); //quit button
-	gfx_text(929+15, 507+35, "QUIT"); //button label
+	gfx_text(929+30, 507+14, "QUIT"); //button label
 
 }
 
@@ -384,7 +384,7 @@ int cleanbarinc(int status, int currentbarstatus[]) {
 	unsigned char * bufferPtr = readRAWImage( "bathroom.bmp", 54 ); //changes background to bathroom
 	   
 	// Draw the image on screen
-	printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+	printRAWImage ( 0, 0, 800, 600, bufferPtr );
 
 	gfx_color(51, 255, 255);  //blue
 

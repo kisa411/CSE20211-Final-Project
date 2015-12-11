@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "gfx5.c"
+#include "gfx5.h"
 #include "gfxe.h"
 
 /**************************
