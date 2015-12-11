@@ -73,9 +73,6 @@ int main( int argc, char * argv[] ) {
 					printf("livingroom\n");
 
 					//draw pet
-					//unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-					   
-					// Draw the image on screen
 					//printRAWImage ( 400, 500, 130, 130, pet );
 					//free( pet );
 
@@ -99,9 +96,6 @@ int main( int argc, char * argv[] ) {
 					printf("livingroom\n");
 					
 					//draw pet
-					//unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-					   
-					// Draw the image on screen
 					//printRAWImage ( 400, 500, 130, 130, pet );
 					//free( pet );
 
@@ -125,9 +119,6 @@ int main( int argc, char * argv[] ) {
 					printf("livingroom\n");
 				
 					//draw pet
-					//unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-					   
-					// Draw the image on screen
 					//printRAWImage ( 400, 500, 130, 130, pet );
 					//free( pet );
 
@@ -153,9 +144,6 @@ int main( int argc, char * argv[] ) {
 					//move to bathroom automatically
 
 					//draw pet
-					//unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-					   
-					// Draw the image on screen
 					//printRAWImage ( 400, 500, 130, 130, pet );
 					//free( pet );
 
@@ -179,9 +167,6 @@ int main( int argc, char * argv[] ) {
 					printf("livingroom\n");
 					
 					//draw pet
-					//unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-					   
-					// Draw the image on screen
 					//printRAWImage ( 400, 500, 130, 130, pet );
 					//free( pet );
 
