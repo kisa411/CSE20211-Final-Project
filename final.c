@@ -76,21 +76,27 @@ int main( int argc, char * argv[] ) {
 					// printRAWImage ( 400, 500, 130, 130, pet );
 					// free( pet );
 
+					//display food bowl
+					//unsigned char * foodbowl = readRAWImage( "dogfood.bmp", 54 );
+					   
+					// Draw the image on screen
+					//printRAWImage ( 600, 500, 80, 80, foodbowl );
+					//free( foodbowl );
+
 					//increment food bar by +20px each time it is clicked
 					new=foodbarinc(currentbarstatus[0]);
 
 					currentbarstatus[0] = new;
 					if (new<=0) {
-							gfx_clear();
-							gfx_color(255, 0, 0);
-							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-							gfx_text(400, 300, "YOUR PET DIED.\n");
-							return 0;
-						}
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						return 0;
+					}
 					break;
 				case 2:
 					//water
-					//display water and pet drinking
 					
 					// Go back to living room
 				
@@ -102,21 +108,27 @@ int main( int argc, char * argv[] ) {
 					// printRAWImage ( 400, 500, 130, 130, pet );
 					// free( pet );
 
+					//display water bowl
+					//unsigned char * waterbowl = readRAWImage( "dogwater.bmp", 54 );
+					   
+					// Draw the image on screen
+					//printRAWImage ( 600, 500, 80, 80, waterbowl );
+					//free( waterbowl );
+
+
 					//increment water bar by +20px each time it is clicked
 					new=waterbarinc(currentbarstatus[1]);
 					currentbarstatus[1] = new;
 					if (new<=0) {
-							gfx_clear();
-							gfx_color(255, 0, 0);
-							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-							gfx_text(400, 300, "YOUR PET DIED.\n");
-							return 0;
-						}
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						return 0;
+					}
 					break;
 				case 3:
 					//play
-					//display toy bouncing around
-					//clean, sleep, food, water bar decreases
 					
 					// Go back to living room
 				
@@ -127,6 +139,13 @@ int main( int argc, char * argv[] ) {
 					//draw pet
 					// printRAWImage ( 400, 500, 130, 130, pet );
 					// free( pet );
+
+					//display toys
+					//unsigned char * toys = readRAWImage( "dogtoy.bmp", 54 );
+					   
+					// Draw the image on screen
+					//printRAWImage ( 600, 500, 80, 80, toys );
+					//free( toys );
 
 
 					//increment play bar by +20px each time it is clicked
@@ -144,12 +163,12 @@ int main( int argc, char * argv[] ) {
 
 					
 					if (new<=0) {
-							gfx_clear();
-							gfx_color(255, 0, 0);
-							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-							gfx_text(400, 300, "YOUR PET DIED.\n");
-							return 0;
-						}
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						return 0;
+					}
 					break;
 				case 4:
 					//clean
@@ -162,12 +181,12 @@ int main( int argc, char * argv[] ) {
 					new=cleanbarinc(currentbarstatus[3]);
 					currentbarstatus[3] = new;
 					if (new<=0) {
-							gfx_clear();
-							gfx_color(255, 0, 0);
-							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-							gfx_text(400, 300, "YOUR PET DIED.\n");
-							return 0;
-						}
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						return 0;
+					}
 					break;
 				case 5:
 					//sleep
@@ -175,10 +194,12 @@ int main( int argc, char * argv[] ) {
 					//food, water, and fun decreases
 
 					// Go back to living room
-					
+					// change living room to dark - imitates turning off lights
+					//unsigned char * dark = readRAWImage( "livingroom(dark).bmp", 54 );
+	   
 					// Draw the image on screen
-					//printRAWImage ( 0, 0, 800, 600, bufferPtr );
-					printf("livingroom\n");
+					//printRAWImage ( 0, 0, 800, 600, dark );
+					//free( dark );
 					
 					// draw pet
 					// printRAWImage ( 400, 500, 130, 130, pet );
@@ -198,16 +219,15 @@ int main( int argc, char * argv[] ) {
 					currentbarstatus[2] = newmood;
 
 					if (new<=0) {
-							gfx_clear();
-							gfx_color(255, 0, 0);
-							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-							gfx_text(400, 300, "YOUR PET DIED.\n");
-							return 0;
-						}
+						gfx_clear();
+						gfx_color(255, 0, 0); //RED
+						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						return 0;
+					}
 					break;
 				case 6:
 					//quit
-					//display bye bye screen then quit game
 					loop=0;
 			   }
 		   }
@@ -533,7 +553,7 @@ void balltoy(int currentbarstatus[]) {
 		// free( pet );
 
 	
-		gfx_color(143, 160, 215);
+		gfx_color(255, 255, 0);
 
 		gfx_fill_circle(x, y, 20); //draw circle while changing its coordinates by specified random amount
 		x += dx;
