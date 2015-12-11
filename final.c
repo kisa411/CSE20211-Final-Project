@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> //for 'usleep function'
-#include "gfx5.h"
+#include "gfx5.c"
 #include "gfxe.h"
 
 void drawmenu();
@@ -19,6 +19,7 @@ int sleepbardec(int status);
 void initialbars();
 int click(int xpos, int ypos);
 
+
 int main( int argc, char * argv[] ) {
 
 
@@ -28,18 +29,18 @@ int main( int argc, char * argv[] ) {
 	int new;
 	gfx_open(1050, 600, "TOMODACHI - Borah & Emily");
 
-
- 	while(loop) {
+	drawmenu();
+	drawstatus();
+	initialbars();
 	
-	   // Read the image data into memory
-	   unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+	// Read the image data into memory
+	unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
 	   
-	   // Draw the image on screen
-	   printRAWImage ( 0, 0, 800, 600, bufferPtr );
+	// Draw the image on screen
+	printRAWImage ( 0, 0, 800, 600, bufferPtr );
+	free(bufferPtr);
 
-	   drawmenu();
-	   drawstatus();
-	   initialbars();
+	while (loop) {
 
 	   if (gfx_event_waiting()) {
 
@@ -97,7 +98,7 @@ int main( int argc, char * argv[] ) {
 
 
 	// Always remember to release your memory!
-	free( bufferPtr );
+	//free( bufferPtr );
    }
 }
 
@@ -135,33 +136,71 @@ int click(int xpos, int ypos) {
 void drawmenu() {
 
 	int w=gfx_textpixelwidth("MENU", "lucidasans-bold-18");
-	float xpos, ypos;
+	float xpos;
+	int a, b, c, d, e, f;
+	unsigned char *food=readRAWImage("food.bmp", 54);
+	unsigned char *water=readRAWImage("water.bmp", 54);
+	//ask about picture colors and why they show up weird? 
+
+	printRAWImage ( 837, 381, 84, 57, food );
+	printRAWImage ( 929, 381, 84, 57, water );
 
 	xpos=830+((190-w)/2);
-	ypos=370;
 
    	gfx_color(255, 255, 255);
 
 	//label
 	gfx_changefont("lucidasans-bold-18");
-	gfx_text(xpos, ypos, "MENU");
+	gfx_text(xpos, 370, "MENU");
    	
 	//box
 	gfx_rectangle(830, 350, 190, 220);
 
 	//buttons
-	gfx_rectangle(837, 381, 84, 57); //food button
-	gfx_text(837+30, 381+14, "FOOD"); //button label
-	gfx_rectangle(837, 444, 84, 57); //water button
-	gfx_text(837+30, 444+14, "WATER"); //button label
-	gfx_rectangle(837, 507, 84, 57); //play button
-	gfx_text(837+30, 507+14, "PLAY"); //button label
-	gfx_rectangle(929, 381, 84, 57); //clean button
-	gfx_text(929+30, 381+14, "CLEAN"); //button label
-	gfx_rectangle(929, 444, 84, 57); //sleep button
-	gfx_text(929+30, 444+14, "SLEEP"); //button label
-	gfx_rectangle(929, 507, 84, 57); //quit button
-	gfx_text(929+30, 507+14, "QUIT"); //button label
+	gfx_changefont("lucidasans-bold-12");
+	//food button
+	gfx_rectangle(837, 381, 84, 57); 
+	a=gfx_textpixelwidth("FOOD", "lucidasans-bold-12");
+	xpos=837+((84-a)/2);
+	gfx_color(0,0,0);
+	gfx_text(xpos, 381+16, "FOOD"); 
+
+	//clean button
+	gfx_color(255, 255, 255);
+	gfx_rectangle(837, 444, 84, 57);
+	b=gfx_textpixelwidth("CLEAN", "lucidasans-bold-12");
+	xpos=837+((84-b)/2);
+	gfx_text(xpos, 444+16, "CLEAN"); 
+
+	//sleep button
+	gfx_rectangle(837, 507, 84, 57);
+	c=gfx_textpixelwidth("SLEEP", "lucidasans-bold-12");
+	xpos=837+((84-c)/2);
+	gfx_text(xpos, 507+16, "SLEEP");
+
+	//water button
+	gfx_rectangle(929, 381, 84, 57);
+	d=gfx_textpixelwidth("WATER", "lucidasans-bold-12");
+	gfx_color(0,0,0);
+	xpos=929+((84-d)/2);
+	gfx_text(xpos, 381+16, "WATER"); 
+
+	//play button
+	gfx_color(255, 255, 255);
+	gfx_rectangle(929, 444, 84, 57); 
+	e=gfx_textpixelwidth("PLAY", "lucidasans-bold-12");
+	xpos=929+((84-e)/2);
+	gfx_text(xpos, 444+16, "PLAY"); 
+
+	//quit button
+	gfx_rectangle(929, 507, 84, 57);
+	f=gfx_textpixelwidth("QUIT", "lucidasans-bold-12");
+	xpos=929+((84-f)/2);
+	gfx_text(xpos, 507+16, "QUIT"); 
+
+	free( food );
+	free( water );
+
 
 }
 
@@ -377,7 +416,7 @@ int moodbarinc(int status, int currentbarstatus[]) {
 
 int cleanbarinc(int status, int currentbarstatus[]) {
 
-   	// int inc; //amount to increment
+   	int inc; //amount to increment
 	int newstatus;
 
 	// Read the image data into memory
