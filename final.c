@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> //for 'usleep function'
-#include "gfx5.h"
+#include "gfx5.c"
 #include "gfxe.h"
 
 void drawmenu();
@@ -45,12 +45,14 @@ int main( int argc, char * argv[] ) {
 	   if (gfx_event_waiting()) {
 
 		   c=gfx_wait();
+		   gfx_wait();
+
 		   if (c==1) {    //return for left click
 			   xpos=gfx_xpos();
 			   ypos=gfx_ypos();
-			   action=click(xpos, ypos);
-
-			   switch (action) {
+			   action=click(xpos, ypos); 
+			  
+			switch (action) {
 				case 1:
 					//food
 					//display food and pet eating
@@ -66,11 +68,12 @@ int main( int argc, char * argv[] ) {
 					currentbarstatus[1] = new;
 					break;
 				case 3:
-					//toy
+					//play
 					//display toy bouncing around
 					//clean, sleep, food, water bar decreases
 					//increment play bar by 5px each time it is clicked
 					new=moodbarinc(currentbarstatus[2], currentbarstatus);
+					balltoy();
 					currentbarstatus[2] = new;
 					break;
 				case 4:
@@ -96,9 +99,6 @@ int main( int argc, char * argv[] ) {
 		   }
 	   }
 
-
-	// Always remember to release your memory!
-	//free( bufferPtr );
    }
 }
 
@@ -106,24 +106,24 @@ int main( int argc, char * argv[] ) {
 int click(int xpos, int ypos) {
 
 	if (xpos>=837 && xpos<=837+84) {
-		if (ypos<=381 && ypos >=381+57) {  //button 1: food
+		if (ypos>=381 && ypos <=381+57) {  //button 1: food
 	   		return 1;
 		}
-		else if (ypos<=444 && ypos >=444+57) {  //button 3: toy
+		else if (ypos>=444 && ypos <=444+57) {  //button 3: play
 			return 3;
 		}
-		else if (ypos<=507 && ypos >=507+57) {  //button 5: clean
+		else if (ypos>=507 && ypos <=507+57) {  //button 5: sleep
 		   	return 5;
 		}
 	}
 	else if (xpos>=929 && xpos<=929+84) { 
-	   	if (ypos<=381 && ypos >=381+57) {   //button 2: water
+	   	if (ypos>=381 && ypos <=381+57) {   //button 2: water
 			return 2;
 		}
-		else if (ypos<=444 && ypos >=444+57) {  //button 4: sleep
+		else if (ypos>=444 && ypos <=444+57) {  //button 4: clean
 			return 4;
 		}
-		else if (ypos<=507 && ypos >=507+57) {  //button 6: quit
+		else if (ypos>=507 && ypos <=507+57) {  //button 6: quit
 		   	return 6;
 		}
 	}
@@ -142,70 +142,78 @@ void drawmenu() {
 	unsigned char *water=readRAWImage("water.bmp", 54);
 	unsigned char *quit=readRAWImage("quit.bmp", 54);
 	unsigned char *play=readRAWImage("ball.bmp", 54);
+	unsigned char *clean=readRAWImage("bubbles-hi.bmp", 54);
+	unsigned char *sleep=readRAWImage("sleep1.bmp", 54);
 	//ask about picture colors and why they show up weird? 
 
+	//icon images
 	printRAWImage ( 837, 381, 84, 57, (char *) food );
 	printRAWImage ( 929, 381, 84, 57, (char *) water );
 	printRAWImage ( 929, 507, 84, 57, (char *) quit );
 	printRAWImage ( 929, 444, 84, 57, (char *) play );
-
-	xpos=830+((190-w)/2);
-
-   	gfx_color(255, 255, 255);
+	printRAWImage ( 837, 444, 84, 57, (char *) clean );
+	printRAWImage ( 837, 507, 84, 57, (char *) sleep );
 
 	//label
+	gfx_color(255, 255, 255);
 	gfx_changefont("lucidasans-bold-18");
+	xpos=830+((190-w)/2);
 	gfx_text(xpos, 370, "MENU");
    	
-	//box
+	//big box
 	gfx_rectangle(830, 350, 190, 220);
 
 	//buttons
-	gfx_changefont("lucidasans-bold-12");
-	//food button
+	//button boxes
+	gfx_color(255, 255, 255);
 	gfx_rectangle(837, 381, 84, 57); 
+	gfx_rectangle(837, 444, 84, 57);
+	gfx_rectangle(837, 507, 84, 57);	
+	gfx_rectangle(929, 381, 84, 57);
+	gfx_rectangle(929, 444, 84, 57); 
+	gfx_rectangle(929, 507, 84, 57);
+
+	//button icons
+	gfx_changefont("lucidasans-bold-12");
+	gfx_color(0,0,0);
+
+	//food button
 	a=gfx_textpixelwidth("FOOD", "lucidasans-bold-12");
 	xpos=837+((84-a)/2);
-	gfx_color(0,0,0);
 	gfx_text(xpos, 381+16, "FOOD"); 
 
 	//clean button
-	gfx_color(255, 255, 255);
-	gfx_rectangle(837, 444, 84, 57);
 	b=gfx_textpixelwidth("CLEAN", "lucidasans-bold-12");
 	xpos=837+((84-b)/2);
 	gfx_text(xpos, 444+16, "CLEAN"); 
 
 	//sleep button
-	gfx_rectangle(837, 507, 84, 57);
 	c=gfx_textpixelwidth("SLEEP", "lucidasans-bold-12");
 	xpos=837+((84-c)/2);
 	gfx_text(xpos, 507+16, "SLEEP");
 
 	//water button
-	gfx_rectangle(929, 381, 84, 57);
 	d=gfx_textpixelwidth("WATER", "lucidasans-bold-12");
 	gfx_color(0,0,0);
 	xpos=929+((84-d)/2);
 	gfx_text(xpos, 381+16, "WATER"); 
 
 	//play button
-	gfx_color(255, 255, 255);
-	gfx_rectangle(929, 444, 84, 57); 
 	e=gfx_textpixelwidth("PLAY", "lucidasans-bold-12");
 	xpos=929+((84-e)/2);
 	gfx_text(xpos, 444+16, "PLAY"); 
 
 	//quit button
-	gfx_rectangle(929, 507, 84, 57);
 	f=gfx_textpixelwidth("QUIT", "lucidasans-bold-12");
 	xpos=929+((84-f)/2);
 	gfx_text(xpos, 507+16, "QUIT"); 
 
 	free( food );
 	free( water );
-
-
+	free( clean );
+	free( sleep );
+	free( quit );
+	free( play );
 }
 
 void drawstatus() {
@@ -360,6 +368,17 @@ int moodbarinc(int status, int currentbarstatus[]) {
 			}
 	}
 
+	foodbardec(currentbarstatus[0]);
+	waterbardec(currentbarstatus[1]);
+	sleepbardec(currentbarstatus[4]);
+
+	newstatus=status+inc;
+
+	return newstatus;
+
+}
+
+void balltoy() {
 
 	//ball toy bouncing around screen
 	double x, y, dx, dy;
@@ -408,15 +427,8 @@ int moodbarinc(int status, int currentbarstatus[]) {
 		}	
 	} while (c != 'q'); //do-while 
 
-	foodbardec(currentbarstatus[0]);
-	waterbardec(currentbarstatus[1]);
-	sleepbardec(currentbarstatus[4]);
-
-	newstatus=status+inc;
-
-	return newstatus;
-
 }
+
 
 int cleanbarinc(int status, int currentbarstatus[]) {
 
