@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h> //for 'usleep function'
 #include "gfx5.h"
+#include "gfx5.c"
 #include "gfxe.h"
 
 void drawmenu();
