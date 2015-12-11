@@ -123,7 +123,6 @@ int main( int argc, char * argv[] ) {
 							printf("Your pet died.\n");
 							return 0;
 						}
-
 					break;
 				case 5:
 					//sleep
