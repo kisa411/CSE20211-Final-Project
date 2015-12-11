@@ -42,11 +42,11 @@ int main( int argc, char * argv[] ) {
 	//free(bufferPtr);
 
 	//draw pet
-	//unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
 	   
 	// Draw the image on screen
-	//printRAWImage ( 400, 500, 130, 130, pet );
-	//free( pet );
+	printRAWImage ( 400, 500, 130, 130, pet );
+	free( pet );
 
 	while (loop) {
 
@@ -73,8 +73,8 @@ int main( int argc, char * argv[] ) {
 					printf("livingroom\n");
 
 					//draw pet
-					//printRAWImage ( 400, 500, 130, 130, pet );
-					//free( pet );
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 
 					//increment food bar by +20px each time it is clicked
 					new=foodbarinc(currentbarstatus[0]);
@@ -96,8 +96,8 @@ int main( int argc, char * argv[] ) {
 					printf("livingroom\n");
 					
 					//draw pet
-					//printRAWImage ( 400, 500, 130, 130, pet );
-					//free( pet );
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 
 					//increment water bar by +20px each time it is clicked
 					new=waterbarinc(currentbarstatus[1]);
@@ -119,8 +119,8 @@ int main( int argc, char * argv[] ) {
 					printf("livingroom\n");
 				
 					//draw pet
-					//printRAWImage ( 400, 500, 130, 130, pet );
-					//free( pet );
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 
 
 					//increment play bar by +20px each time it is clicked
@@ -141,11 +141,10 @@ int main( int argc, char * argv[] ) {
 					break;
 				case 4:
 					//clean
-					//move to bathroom automatically
 
 					//draw pet
-					//printRAWImage ( 400, 500, 130, 130, pet );
-					//free( pet );
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 
 					//when cleaned, fill clean bar
 					new=cleanbarinc(currentbarstatus[3]);
@@ -166,9 +165,9 @@ int main( int argc, char * argv[] ) {
 					//printRAWImage ( 0, 0, 800, 600, bufferPtr );
 					printf("livingroom\n");
 					
-					//draw pet
-					//printRAWImage ( 400, 500, 130, 130, pet );
-					//free( pet );
+					// draw pet
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 
 					//when sleep, fill sleep bar
 					new=sleepbarinc(currentbarstatus[4]);
@@ -505,11 +504,11 @@ void balltoy() {
 		//printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
 
 		//draw pet
-		//unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+		unsigned char * pet = readRAWImage( "pet.bmp", 54 );
 		   
 		// Draw the image on screen
-		//printRAWImage ( 400, 500, 130, 130, pet );
-		//free( pet );
+		printRAWImage ( 400, 500, 130, 130, pet );
+		free( pet );
 
 	
 		gfx_color(143, 160, 215);
