@@ -19,7 +19,7 @@ int sleepbardec(int status);
 void initialbars();
 void currentbars(int array[]);
 int click(int xpos, int ypos);
-void balltoy(int array[]);
+//void balltoy(int array[]);
 
 int main( int argc, char * argv[] ) {
 
@@ -151,7 +151,7 @@ int main( int argc, char * argv[] ) {
 					//increment play bar by +20px each time it is clicked
 					new=moodbarinc(currentbarstatus[2]);
 					currentbarstatus[2] = new;
-					balltoy(currentbarstatus);
+					// balltoy(currentbarstatus);
 
 					//decrement food, water, and sleep by -20 px
 					newfood = foodbardec(currentbarstatus[0]);
@@ -386,11 +386,11 @@ void drawstatus() {
 
 void initialbars() {
 
-   int i;
+   	int i;
 
-   gfx_color(51, 255, 255);
-   for (i=0; i<5; i++) {
-   	gfx_fill_rectangle(853, 83+(50*i), 100, 14); //bar is 100 px long
+   	gfx_color(51, 255, 255);
+   	for (i=0; i<5; i++) {
+   		gfx_fill_rectangle(853, 83+(50*i), 100, 14); //bar is 100 px long
    }
 
 }
@@ -527,74 +527,74 @@ int moodbarinc(int status) {
 
 }
 
-void balltoy(int currentbarstatus[]) {
+// void balltoy(int currentbarstatus[]) {
 
-	//ball toy bouncing around screen
-	double x, y, dx, dy;
-	char c = '0';
+// 	//ball toy bouncing around screen
+// 	double x, y, dx, dy;
+// 	char c = '0';
 
 
-	//do random direction 
-	do {
-		drawmenu();
-		currentbars(currentbarstatus);
+// 	//do random direction 
+// 	do {
+// 		drawmenu();
+// 		currentbars(currentbarstatus);
 
-		// Read the image data into memory
-		//unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
+// 		// Read the image data into memory
+// 		//unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
 	   
-		// Draw the image on screen
-		//printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+// 		// Draw the image on screen
+// 		//printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
 
-		//draw pet
-		// unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+// 		//draw pet
+// 		// unsigned char * pet = readRAWImage( "pet.bmp", 54 );
 		   
-		// Draw the image on screen
-		// printRAWImage ( 400, 500, 130, 130, pet );
-		// free( pet );
+// 		// Draw the image on screen
+// 		// printRAWImage ( 400, 500, 130, 130, pet );
+// 		// free( pet );
 
 	
-		gfx_color(255, 255, 0);
+// 		gfx_color(255, 255, 0);
 
-		gfx_fill_circle(x, y, 20); //draw circle while changing its coordinates by specified random amount
-		x += dx;
-		y += dy;
+// 		gfx_fill_circle(x, y, 20); //draw circle while changing its coordinates by specified random amount
+// 		x += dx;
+// 		y += dy;
 
-		gfx_flush(); //after you draw everything you want, ensures that it makes it show onto the screen
+// 		gfx_flush(); //after you draw everything you want, ensures that it makes it show onto the screen
 
-		usleep(5000); //makes image stay on screen for specified milliseconds
+// 		usleep(5000); //makes image stay on screen for specified milliseconds
 
-		gfx_clear(); //clear screen of previous animations
+// 		gfx_clear(); //clear screen of previous animations
 
-		if (x > 780) { //x-boundaries of graphics window
-			x = 780;
-			dx = -dx; //re-set location of circle
-		} else if (x < 20) {
-			x = 20;
-			dx = -dx;
-		} else if (y > 580) {
-			y = 580;
-			dy = -dy;
-		} else if (y < 20) { //y-boundaries of graphics window
-			y = 20;
-			dy = -dy;
-		}	
+// 		if (x > 780) { //x-boundaries of graphics window
+// 			x = 780;
+// 			dx = -dx; //re-set location of circle
+// 		} else if (x < 20) {
+// 			x = 20;
+// 			dx = -dx;
+// 		} else if (y > 580) {
+// 			y = 580;
+// 			dy = -dy;
+// 		} else if (y < 20) { //y-boundaries of graphics window
+// 			y = 20;
+// 			dy = -dy;
+// 		}	
 
-		if (c == 1) {
-			x = gfx_xpos(); //get mouse location
-			y = gfx_ypos(); //get mouse location
+// 		if (c == 1) {
+// 			x = gfx_xpos(); //get mouse location
+// 			y = gfx_ypos(); //get mouse location
 
-			dx = rand()%3; //randomly changes speed of circle
-			dy = rand()%3; //randomly changes speed of circle
+// 			dx = rand()%3; //randomly changes speed of circle
+// 			dy = rand()%3; //randomly changes speed of circle
 
-			c = '0';	
-		}	
+// 			c = '0';	
+// 		}	
 
-		if (gfx_event_waiting()) {
-			c = gfx_wait(); //repeat loop until user clicks mouse
-		}	
-	} while (c != 'q'); //do-while 
+// 		if (gfx_event_waiting()) {
+// 			c = gfx_wait(); //repeat loop until user clicks mouse
+// 		}	
+// 	} while (c != 'q'); //do-while 
 
-}
+// }
 
 
 int cleanbarinc(int status) {
@@ -613,7 +613,7 @@ int cleanbarinc(int status) {
 
 	if (status<=0) {   //pet dies if bar reaches 0
 	   	gfx_cleararea(853, 233, 144, 14);
-		return 0; //?
+		return 0; 
 	}
 	else {
 	   	//increment clean bar after cleaning
