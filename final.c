@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h> //for 'usleep function'
 #include "gfx5.h"
-#include "gfx5.c"
+//#include "gfx5.c"
 #include "gfxe.h"
 
 void drawmenu();
@@ -51,55 +51,75 @@ int main( int argc, char * argv[] ) {
 			   ypos=gfx_ypos();
 			   action=click(xpos, ypos);
 
-			   switch (action) {
-				case 1:
-					//food
-					//display food and pet eating
-					//increment food bar by 5px each time it is clicked
-					new=foodbarinc(currentbarstatus[0], currentbarstatus);
-					currentbarstatus[0] = new;
-					break;
-				case 2:
-					//water
-					//display water and pet drinking
-					//increment water bar by 5px each time it is clicked
-					new=waterbarinc(currentbarstatus[1], currentbarstatus);
-					currentbarstatus[1] = new;
-					break;
-				case 3:
-					//toy
-					//display toy bouncing around
-					//clean, sleep, food, water bar decreases
-					//increment play bar by 5px each time it is clicked
-					new=moodbarinc(currentbarstatus[2], currentbarstatus);
-					currentbarstatus[2] = new;
-					break;
-				case 4:
-					//clean
-					//move to bathroom automatically
-					//when cleaned, fill clean bar
-					new=cleanbarinc(currentbarstatus[3], currentbarstatus);
-					currentbarstatus[3] = new;
-					break;
-				case 5:
-					//sleep
-					//pet moves to bed and sleeps until user wakes it
-					//food, water, and fun decreases
-					//sleep bar incremented by 5px depending on how long it sleeps
-					new=sleepbarinc(currentbarstatus[4], currentbarstatus);
-					currentbarstatus[4] = new;
-					break;
-				case 6:
-					//quit
-					//display bye bye screen then quit game
-					loop=0;
-			   }
-		   }
-	   }
+			    switch (action) {
+					case 1:
+						//food
+						//display food and pet eating
+						//increment food bar by 5px each time it is clicked
+						new=foodbarinc(currentbarstatus[0], currentbarstatus);
+						currentbarstatus[0] = new;
+						if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
+						break;
+					case 2:
+						//water
+						//display water and pet drinking
+						//increment water bar by 5px each time it is clicked
+						new=waterbarinc(currentbarstatus[1], currentbarstatus);
+						currentbarstatus[1] = new;
+						if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
+						break;
+					case 3:
+						//toy
+						//display toy bouncing around
+						//clean, sleep, food, water bar decreases
+						//increment play bar by 5px each time it is clicked
+						new=moodbarinc(currentbarstatus[2], currentbarstatus);
+						currentbarstatus[2] = new;
+						if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
+						break;
+					case 4:
+						//clean
+						//move to bathroom automatically
+						//when cleaned, fill clean bar
+						new=cleanbarinc(currentbarstatus[3], currentbarstatus);
+						currentbarstatus[3] = new;
+						if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
+						break;
+					case 5:
+						//sleep
+						//pet moves to bed and sleeps until user wakes it
+						//food, water, and fun decreases
+						//sleep bar incremented by 5px depending on how long it sleeps
+						new=sleepbarinc(currentbarstatus[4], currentbarstatus);
+						currentbarstatus[4] = new;
+						if (new<=0) {
+							printf("Your pet died.\n");
+							return 0;
+						}
+						break;
+					case 6:
+						//quit
+						//display bye bye screen then quit game
+						loop=0;
+			    }
+		    }
+	    }
 
 
 	// Always remember to release your memory!
-	//free( bufferPtr );
+	free( bufferPtr );
    }
 }
 
