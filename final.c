@@ -250,7 +250,7 @@ void drawmenu() {
 	printRAWImage ( 837, 507, 84, 57, (char *) sleep );
 
 	//label
-	gfx_color(255, 255, 255);
+	gfx_color(0, 0, 0);
 	gfx_changefont("lucidasans-bold-18");
 	xpos=830+((190-w)/2);
 	gfx_text(xpos, 370, "MENU");
