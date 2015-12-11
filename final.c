@@ -19,7 +19,7 @@ int sleepbardec(int status);
 void initialbars();
 void currentbars(int array[]);
 int click(int xpos, int ypos);
-void balltoy();
+void balltoy(int array[]);
 
 int main( int argc, char * argv[] ) {
 
@@ -485,7 +485,7 @@ int moodbarinc(int status) {
 
 }
 
-void balltoy() {
+void balltoy(int currentbarstatus[]) {
 
 	//ball toy bouncing around screen
 	double x, y, dx, dy;
@@ -495,7 +495,7 @@ void balltoy() {
 	//do random direction 
 	do {
 		drawmenu();
-		currentbars();
+		currentbars(currentbarstatus);
 
 		// Read the image data into memory
 		//unsigned char * bufferPtr = readRAWImage( "livingroom1(bmpsize).bmp", 54 );
