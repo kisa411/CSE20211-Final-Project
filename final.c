@@ -349,7 +349,7 @@ void initialbars() {
 
    gfx_color(51, 255, 255);
    for (i=0; i<5; i++) {
-   	gfx_fill_rectangle(853, 83+(50*i), 144, 14); //bar is 144 px long
+   	gfx_fill_rectangle(853, 83+(50*i), 100, 14); //bar is 100 px long
    }
 
 }
