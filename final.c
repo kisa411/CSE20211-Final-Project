@@ -81,7 +81,10 @@ int main( int argc, char * argv[] ) {
 
 					currentbarstatus[0] = new;
 					if (new<=0) {
-							printf("Your pet died. THE END\n");
+							gfx_clear();
+							gfx_color(255, 0, 0);
+							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+							gfx_text(400, 300, "YOUR PET DIED.\n");
 							return 0;
 						}
 					break;
@@ -103,7 +106,10 @@ int main( int argc, char * argv[] ) {
 					new=waterbarinc(currentbarstatus[1]);
 					currentbarstatus[1] = new;
 					if (new<=0) {
-							printf("Your pet died. THE END\n");
+							gfx_clear();
+							gfx_color(255, 0, 0);
+							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+							gfx_text(400, 300, "YOUR PET DIED.\n");
 							return 0;
 						}
 					break;
@@ -138,7 +144,10 @@ int main( int argc, char * argv[] ) {
 
 					
 					if (new<=0) {
-							printf("Your pet died. THE END\n");
+							gfx_clear();
+							gfx_color(255, 0, 0);
+							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+							gfx_text(400, 300, "YOUR PET DIED.\n");
 							return 0;
 						}
 					break;
@@ -153,7 +162,10 @@ int main( int argc, char * argv[] ) {
 					new=cleanbarinc(currentbarstatus[3]);
 					currentbarstatus[3] = new;
 					if (new<=0) {
-							printf("Your pet died. THE END\n");
+							gfx_clear();
+							gfx_color(255, 0, 0);
+							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+							gfx_text(400, 300, "YOUR PET DIED.\n");
 							return 0;
 						}
 					break;
@@ -186,7 +198,10 @@ int main( int argc, char * argv[] ) {
 					currentbarstatus[2] = newmood;
 
 					if (new<=0) {
-							printf("Your pet died. THE END\n");
+							gfx_clear();
+							gfx_color(255, 0, 0);
+							gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+							gfx_text(400, 300, "YOUR PET DIED.\n");
 							return 0;
 						}
 					break;
