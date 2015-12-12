@@ -620,12 +620,3 @@ int sleepbardec(int status) {
 	}
 
 }	   	
-
-
-
-
-
-
-
-
-
