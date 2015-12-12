@@ -20,6 +20,7 @@ int sleepbardec(int status);
 void initialbars();
 void currentbars(int array[]);
 int click(int xpos, int ypos);
+int goodbye(int arr[]);
 
 int main( int argc, char * argv[] ) {
 
@@ -61,39 +62,18 @@ int main( int argc, char * argv[] ) {
 			switch (action) {
 				case 1:
 					//food
-
 					//increment food bar by +20px each time it is clicked
 					new=foodbarinc(currentbarstatus[0]);
-
-					currentbarstatus[0] = new;
-					if (new<=0) {
-						gfx_clear();
-						gfx_color(255, 0, 0);
-						gfx_changefont("font");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
-					}					
+					currentbarstatus[0] = new;				
 					break;
 				case 2:
 					//water
-
 					//increment water bar by +20px each time it is clicked
 					new=waterbarinc(currentbarstatus[1]);
 					currentbarstatus[1] = new;
-					if (new<=0) {
-						gfx_clear();
-						gfx_color(255, 0, 0);
-						gfx_changefont("font");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
-					
-					}
 					break;
 				case 3:
 					//play
-					
 					//increment play bar by +20px each time it is clicked
 					new=moodbarinc(currentbarstatus[2]);
 					currentbarstatus[2] = new;
@@ -108,36 +88,18 @@ int main( int argc, char * argv[] ) {
 					newclean = cleanbardec(currentbarstatus[3]);
 					currentbarstatus[3] = newclean;
 
-					
-					if (newfood==-1 || newwater==-1 || newsleep==-1) {
-						gfx_clear();
-						gfx_color(255, 0, 0);
-						gfx_changefont("font");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
-
-					}				
+					//check if pet died
+					loop = goodbye(currentbarstatus);			
 					break;
 				case 4:
 					//clean
-
 					//when cleaned, fill clean bar
 					new=cleanbarinc(currentbarstatus[3]);
 					currentbarstatus[3] = new;
-					if (new<=0) {
-						gfx_clear();
-						gfx_color(255, 0, 0);
-						gfx_changefont("font");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
-					}
 											
 					break;
 				case 5:
 					//sleep
-					
 					//when sleep, fill sleep bar
 					new = sleepbarinc(currentbarstatus[4]);
 					currentbarstatus[4] = new;
@@ -150,15 +112,9 @@ int main( int argc, char * argv[] ) {
 					newmood = moodbardec(currentbarstatus[2]);
 					currentbarstatus[2] = newmood;
 
-					if (newfood==-1 || newwater==-1 || newmood==-1) {
-						gfx_clear();
-						gfx_color(255, 0, 0); //RED
-						gfx_changefont("font");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
-					}
-	
+					//check if pet died
+					loop = goodbye(currentbarstatus);
+
 					break;
 				case 6:
 					//quit
@@ -168,6 +124,26 @@ int main( int argc, char * argv[] ) {
 	   }
    }
 }
+
+int goodbye(int arr[]) {
+
+	int i;
+
+	for (i=0; i<5; i++) {
+		if (arr[i]==-1) {
+			gfx_clear();
+			gfx_color(255, 0, 0); //RED
+			gfx_changefont("font");
+			gfx_text(400, 300, "YOUR PET DIED.\n");
+			usleep(1000000);
+			return 0;
+		}
+	}
+	return 1;
+}
+
+
+
 
 
 int click(int xpos, int ypos) {
