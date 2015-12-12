@@ -3,6 +3,7 @@
 #include <unistd.h> //for 'usleep function'
 #include "gfx5.c"
 #include "gfxe.h"
+#define font -itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16
 
 void drawmenu();
 void drawstatus();
@@ -35,6 +36,10 @@ int main( int argc, char * argv[] ) {
 	
 	// Read image data into memory
 	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
+<<<<<<< HEAD
+=======
+	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+>>>>>>> e2870f2a3e228190804011cca486cb00b8cfcbb2
 
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
@@ -65,9 +70,20 @@ int main( int argc, char * argv[] ) {
 					//increment food bar by +20px each time it is clicked
 					new=foodbarinc(currentbarstatus[0]);
 					currentbarstatus[0] = new;
+<<<<<<< HEAD
 
 					//check if pet died
 					loop=goodbye(currentstatusbar[]);				
+=======
+					if (new<=0) {
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
+					}					
+>>>>>>> e2870f2a3e228190804011cca486cb00b8cfcbb2
 					break;
 				case 2:
 					//water
@@ -75,10 +91,22 @@ int main( int argc, char * argv[] ) {
 					//increment water bar by +20px each time it is clicked
 					new=waterbarinc(currentbarstatus[1]);
 					currentbarstatus[1] = new;
+<<<<<<< HEAD
 
 					//check if pet died
 					loop=goodbye(currentstatusbar);
 
+=======
+					if (new<=0) {
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
+					
+					}
+>>>>>>> e2870f2a3e228190804011cca486cb00b8cfcbb2
 					break;
 				case 3:
 					//play
@@ -100,9 +128,22 @@ int main( int argc, char * argv[] ) {
 					newclean = cleanbardec(currentbarstatus[3]);
 					currentbarstatus[3] = newclean;
 
+<<<<<<< HEAD
 					//check if pet died
 					loop=goodbye(currentstatusbar);
 
+=======
+					
+					if (newfood==-1 || newwater==-1 || newsleep==-1) {
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
+
+					}				
+>>>>>>> e2870f2a3e228190804011cca486cb00b8cfcbb2
 					break;
 				case 4:
 					//clean
@@ -110,10 +151,22 @@ int main( int argc, char * argv[] ) {
 					//when cleaned, fill clean bar
 					new=cleanbarinc(currentbarstatus[3]);
 					currentbarstatus[3] = new;
+<<<<<<< HEAD
 
 					//check if pet died
 					loop=goodbye(currentstatusbar);
 
+=======
+					if (new<=0) {
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
+					}
+											
+>>>>>>> e2870f2a3e228190804011cca486cb00b8cfcbb2
 					break;
 				case 5:
 					//sleep
@@ -132,9 +185,21 @@ int main( int argc, char * argv[] ) {
 					newmood = moodbardec(currentbarstatus[2]);
 					currentbarstatus[2] = newmood;
 
+<<<<<<< HEAD
 					//check if pet died
 					loop=goodbye(currentstatusbar);
 
+=======
+					if (newfood==-1 || newwater==-1 || newmood==-1) {
+						gfx_clear();
+						gfx_color(255, 0, 0); //RED
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
+					}
+	
+>>>>>>> e2870f2a3e228190804011cca486cb00b8cfcbb2
 					break;
 				case 6:
 					//quit
