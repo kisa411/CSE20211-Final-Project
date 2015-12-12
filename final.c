@@ -533,11 +533,13 @@ int sleepbarinc(int status) {
 	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
 
 	// Draw the image on screen
+	printRAWImage ( 0, 0, 800, 600, dark );
+	free( dark );
+	
 	printRAWImage ( 400, 500, 130, 130, pet );
 	free( pet );
 
-	printRAWImage ( 0, 0, 800, 600, dark );
-	free( dark );
+
 	
 	gfx_color(51, 255, 255);  //blue
 
