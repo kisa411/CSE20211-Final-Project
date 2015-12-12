@@ -35,16 +35,12 @@ int main( int argc, char * argv[] ) {
 	drawstatus();
 	initialbars();
 
-	unsigned char * bufferPtr = readRAWImage( "initial.bmp", 54 );
-	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+	unsigned char * bufferPtr = readRAWImage( "initialpet.bmp", 54 );
 
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
 	free(bufferPtr);
   
-	// Draw the image on screen
-	printRAWImage ( 400, 500, 130, 130, pet );
-	free( pet );
 
 	while (loop) {
 
@@ -327,20 +323,11 @@ int foodbarinc(int status) {
    	int inc; //amount to increment
 
 	//display living room, pet, dog food
-	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
-	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-	unsigned char * foodbowl = readRAWImage( "dogfood.bmp", 54 );
+	unsigned char * bufferPtr = readRAWImage( "food.bmp", 54 );
 
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
 	free(bufferPtr);
-  
-	// Draw the image on screen
-	printRAWImage ( 400, 500, 130, 130, pet );
-	free( pet );
-
-	printRAWImage ( 600, 500, 80, 80, foodbowl );
-	free( foodbowl );
 
 	gfx_color(51, 255, 255);  //blue
 	//increment food bar after eating
@@ -368,22 +355,12 @@ int waterbarinc(int status) {
    	int inc; //amount to increment
 
 	//display living room, pet, dogbowl
-	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
-	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-	unsigned char * waterbowl = readRAWImage( "dogwater.bmp", 54 );
+	unsigned char * bufferPtr = readRAWImage( "water.bmp", 54 );
 
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
 	free(bufferPtr);
   
-	// Draw the image on screen
-	printRAWImage ( 400, 500, 130, 130, pet );
-	free( pet );
-
-	// Draw water bowl
-	printRAWImage ( 400, 500, 80, 80, waterbowl );
-	free( waterbowl );
-	
 
 	gfx_color(51, 255, 255);  //blue
 
@@ -415,23 +392,12 @@ int moodbarinc(int status) {
    	int inc; //amount to increment
 
 	//display living room, pet, dog toys
-	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
-	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-	unsigned char * toys = readRAWImage( "dogtoy24.bmp", 54 );
-
+	unsigned char * bufferPtr = readRAWImage( "petplay.bmp", 54 );
+	
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
 	free(bufferPtr);
   
-	// Draw the image on screen
-	printRAWImage ( 400, 500, 130, 130, pet );
-	free( pet );
-
-	// Draw water bowl
-	printRAWImage ( 400, 500, 80, 80, toys );
-	free( toys );
-	
-
 	gfx_color(51, 255, 255);  //blue
         
 	//increment mood bar after playing
@@ -460,15 +426,11 @@ int cleanbarinc(int status) {
    	int inc; //amount to increment
 
 	// Read the image data into memory
-	unsigned char *bathroom = readRAWImage( "bathroom.bmp", 54 ); //changes background to bathroom
-	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-	
+	unsigned char *bathroom = readRAWImage( "bathroomscene.bmp", 54 ); //changes background to bathroom
+
 	// Draw the image on screen
 	printRAWImage ( 0, 0, 800, 600,  bathroom);
 	free (bathroom);
-
-	printRAWImage ( 400, 500, 130, 130, pet );
-	free( pet );
 
 	gfx_color(51, 255, 255);  //blue
 
@@ -497,18 +459,13 @@ int sleepbarinc(int status) {
 
    	int inc; //amount to increment
 
-	//display living room, pet
-	unsigned char * dark = readRAWImage( "livingroom(dark).bmp", 54 );
-	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-
+	//display bedroom
+	unsigned char * dark = readRAWImage( "petsleep.bmp", 54 );
+	
 	// Draw the image on screen
-
 	printRAWImage ( 0, 0, 800, 600, dark );
 	free( dark );
 
-	printRAWImage ( 400, 500, 130, 130, pet );
-	free( pet );
-	
 	gfx_color(51, 255, 255);  //blue
 
 	
