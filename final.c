@@ -19,10 +19,9 @@ int sleepbardec(int status);
 void initialbars();
 void currentbars(int array[]);
 int click(int xpos, int ypos);
-//void balltoy(int array[]);
+int goodbye(int arr[]);
 
 int main( int argc, char * argv[] ) {
-
 
 	int xpos, ypos, loop=1, action;
 	int currentbarstatus[5]={100, 100, 100, 100, 100}; //food, water, mood, clean, sleep
@@ -36,15 +35,7 @@ int main( int argc, char * argv[] ) {
 	
 	// Read image data into memory
 	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
-	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-	unsigned char * foodbowl = readRAWImage( "dogfood.bmp", 54 );
-	unsigned char * waterbowl = readRAWImage( "dogwater.bmp", 54 );
-	unsigned char * toys = readRAWImage( "dogtoy.bmp", 54 );
 
-					   
-
-
-	     
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
 	free(bufferPtr);
@@ -71,82 +62,29 @@ int main( int argc, char * argv[] ) {
 					//food
 					//display food and pet eating
 					
-					// Go back to living room
-				 
-					// Draw the image on screen
-					printRAWImage ( 0, 0, 800, 600, bufferPtr );
-					//printf("livingroom\n");
-
-					//draw pet
-					printRAWImage ( 400, 500, 130, 130, pet );
-					free( pet );
-					   
-					// Draw the image on screen
-					printRAWImage ( 600, 500, 80, 80, foodbowl );
-					free( foodbowl );
-
 					//increment food bar by +20px each time it is clicked
 					new=foodbarinc(currentbarstatus[0]);
-
 					currentbarstatus[0] = new;
-					if (new<=0) {
-						gfx_clear();
-						gfx_color(255, 0, 0);
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
-					}					
+
+					//check if pet died
+					loop=goodbye(currentstatusbar[]);				
 					break;
 				case 2:
 					//water
-					
-					// Go back to living room
-				
-					// Draw the image on screen
-					printRAWImage ( 0, 0, 800, 600, bufferPtr );
-					//printf("livingroom\n");
-					
-					// draw pet
-					printRAWImage ( 400, 500, 130, 130, pet );
-					free( pet );
-
-					// Draw the image on screen
-					printRAWImage ( 600, 500, 80, 80, waterbowl );
-					free( waterbowl );
-
 
 					//increment water bar by +20px each time it is clicked
 					new=waterbarinc(currentbarstatus[1]);
 					currentbarstatus[1] = new;
-					if (new<=0) {
-						gfx_clear();
-						gfx_color(255, 0, 0);
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
-					
-					}
+
+					//check if pet died
+					loop=goodbye(currentstatusbar);
+
 					break;
 				case 3:
 					//play
 					
 					// Go back to living room
-				
-					// Draw the image on screen
-					printRAWImage ( 0, 0, 800, 600, bufferPtr );
-					//printf("livingroom\n");
-				
-					//draw pet
-					printRAWImage ( 400, 500, 130, 130, pet );
-					free( pet );
-					   
-					// Draw the image on screen
-					printRAWImage ( 600, 500, 80, 80, toys );
-					free( toys );
-
-
+			
 					//increment play bar by +20px each time it is clicked
 					new=moodbarinc(currentbarstatus[2]);
 					currentbarstatus[2] = new;
@@ -162,58 +100,25 @@ int main( int argc, char * argv[] ) {
 					newclean = cleanbardec(currentbarstatus[3]);
 					currentbarstatus[3] = newclean;
 
-					
-					if (newfood==-1 || newwater==-1 || newsleep==-1) {
-						gfx_clear();
-						gfx_color(255, 0, 0);
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
+					//check if pet died
+					loop=goodbye(currentstatusbar);
 
-					}				
 					break;
 				case 4:
 					//clean
 
-					//draw bathroom
-					//unsigned char *bathroom = readRAWImage("bathroom.bmp", 54);
-					//printRAWImage (0, 0, 800, 600, bathroom);
-					//free(bathroom);
-
-					//draw pet
-					printRAWImage ( 400, 500, 130, 130, pet );
-					free( pet );
-
 					//when cleaned, fill clean bar
 					new=cleanbarinc(currentbarstatus[3]);
 					currentbarstatus[3] = new;
-					if (new<=0) {
-						gfx_clear();
-						gfx_color(255, 0, 0);
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
-					}
-											
+
+					//check if pet died
+					loop=goodbye(currentstatusbar);
+
 					break;
 				case 5:
 					//sleep
 					//pet moves to bed and sleeps until user wakes it
 					//food, water, and fun decreases
-
-					// Go back to living room
-					// change living room to dark - imitates turning off lights
-					//unsigned char * dark = readRAWImage( "livingroom(dark).bmp", 54 );
-	   
-					// Draw the image on screen
-					//printRAWImage ( 0, 0, 800, 600, dark );
-					//free( dark );
-					
-					// draw pet
-					printRAWImage ( 400, 500, 130, 130, pet );
-					free( pet );
 
 					//when sleep, fill sleep bar
 					new = sleepbarinc(currentbarstatus[4]);
@@ -227,15 +132,9 @@ int main( int argc, char * argv[] ) {
 					newmood = moodbardec(currentbarstatus[2]);
 					currentbarstatus[2] = newmood;
 
-					if (newfood==-1 || newwater==-1 || newmood==-1) {
-						gfx_clear();
-						gfx_color(255, 0, 0); //RED
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-						gfx_text(400, 300, "YOUR PET DIED.\n");
-						usleep(1000000);
-						loop=0;
-					}
-	
+					//check if pet died
+					loop=goodbye(currentstatusbar);
+
 					break;
 				case 6:
 					//quit
@@ -244,6 +143,24 @@ int main( int argc, char * argv[] ) {
 		   }
 	   }
    }
+}
+
+int goodbye(int arr[]) {
+
+	for (i=0; i<5; i++) {
+		if (arr[i]==-1)  {
+			gfx_clear();
+			gfx_color(255, 0, 0); //RED
+			gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+			gfx_text(400, 300, "YOUR PET DIED.\n");
+			usleep(1000000);
+			loop=0;
+			return 0;
+		}
+	}
+
+	return 1;
+
 }
 
 
@@ -294,8 +211,8 @@ void drawmenu() {
 	gfx_fill_rectangle(830, 350, 190, 220);
 
 	//icon images
-	printRAWImage ( 837, 381, 84, 57, (char *) food );
-	printRAWImage ( 929, 381, 84, 57, (char *) water );
+	printRAWImage ( 837, 381, 84, 57,  food );
+	printRAWImage ( 929, 381, 84, 57, water );
 	printRAWImage ( 929, 507, 84, 57, (char *) quit );
 	printRAWImage ( 929, 444, 84, 57, (char *) play );
 	printRAWImage ( 837, 444, 84, 57, (char *) clean );
@@ -519,74 +436,6 @@ int moodbarinc(int status) {
 
 }
 
-// void balltoy(int currentbarstatus[]) {
-
-// 	//ball toy bouncing around screen
-// 	double x, y, dx, dy;
-// 	char c = '0';
-
-
-// 	//do random direction 
-// 	do {
-// 		drawmenu();
-// 		currentbars(currentbarstatus);
-
-// 		// Read the image data into memory
-// 		//unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
-	   
-// 		// Draw the image on screen
-// 		//printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
-
-// 		//draw pet
-// 		// unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-		   
-// 		// Draw the image on screen
-// 		// printRAWImage ( 400, 500, 130, 130, pet );
-// 		// free( pet );
-
-	
-// 		gfx_color(255, 255, 0);
-
-// 		gfx_fill_circle(x, y, 20); //draw circle while changing its coordinates by specified random amount
-// 		x += dx;
-// 		y += dy;
-
-// 		gfx_flush(); //after you draw everything you want, ensures that it makes it show onto the screen
-
-// 		usleep(5000); //makes image stay on screen for specified milliseconds
-
-// 		gfx_clear(); //clear screen of previous animations
-
-// 		if (x > 780) { //x-boundaries of graphics window
-// 			x = 780;
-// 			dx = -dx; //re-set location of circle
-// 		} else if (x < 20) {
-// 			x = 20;
-// 			dx = -dx;
-// 		} else if (y > 580) {
-// 			y = 580;
-// 			dy = -dy;
-// 		} else if (y < 20) { //y-boundaries of graphics window
-// 			y = 20;
-// 			dy = -dy;
-// 		}	
-
-// 		if (c == 1) {
-// 			x = gfx_xpos(); //get mouse location
-// 			y = gfx_ypos(); //get mouse location
-
-// 			dx = rand()%3; //randomly changes speed of circle
-// 			dy = rand()%3; //randomly changes speed of circle
-
-// 			c = '0';	
-// 		}	
-
-// 		if (gfx_event_waiting()) {
-// 			c = gfx_wait(); //repeat loop until user clicks mouse
-// 		}	
-// 	} while (c != 'q'); //do-while 
-
-// }
 
 
 int cleanbarinc(int status) {
