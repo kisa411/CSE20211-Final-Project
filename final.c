@@ -27,23 +27,28 @@ int main( int argc, char * argv[] ) {
 	int xpos, ypos, loop=1, action;
 	int currentbarstatus[5]={100, 100, 100, 100, 100}; //food, water, mood, clean, sleep
 	int c;
-	int new, newfood, newwater, newmood, newsleep;
+	int new, newfood, newwater, newmood, newsleep, newclean;
 	gfx_open(1050, 600, "TAMAGOTCHI - Borah & Emily");
 
 	drawmenu();
 	drawstatus();
 	initialbars();
 	
-	// Read the image data into memory
-	//unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
-	   
-	// Draw the image on screen
-	//printRAWImage ( 0, 0, 800, 600, bufferPtr );
-	//free(bufferPtr);
-
-	//draw pet
+	// Read image data into memory
+	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
 	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-	   
+	unsigned char * foodbowl = readRAWImage( "dogfood.bmp", 54 );
+	unsigned char * waterbowl = readRAWImage( "dogwater.bmp", 54 );
+	unsigned char * toys = readRAWImage( "dogtoy.bmp", 54 );
+
+					   
+
+
+	     
+	// Draw the initial living room on screen
+	printRAWImage ( 0, 0, 800, 600, bufferPtr );
+	free(bufferPtr);
+  
 	// Draw the image on screen
 	printRAWImage ( 400, 500, 130, 130, pet );
 	free( pet );
@@ -69,19 +74,16 @@ int main( int argc, char * argv[] ) {
 					// Go back to living room
 				 
 					// Draw the image on screen
-					//printRAWImage ( 0, 0, 800, 600, bufferPtr );
-					printf("livingroom\n");
+					printRAWImage ( 0, 0, 800, 600, bufferPtr );
+					//printf("livingroom\n");
 
 					//draw pet
-					// printRAWImage ( 400, 500, 130, 130, pet );
-					// free( pet );
-
-					//display food bowl
-					//unsigned char * foodbowl = readRAWImage( "dogfood.bmp", 54 );
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 					   
 					// Draw the image on screen
-					//printRAWImage ( 600, 500, 80, 80, foodbowl );
-					//free( foodbowl );
+					printRAWImage ( 600, 500, 80, 80, foodbowl );
+					free( foodbowl );
 
 					//increment food bar by +20px each time it is clicked
 					new=foodbarinc(currentbarstatus[0]);
@@ -92,8 +94,9 @@ int main( int argc, char * argv[] ) {
 						gfx_color(255, 0, 0);
 						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
-						return 0;
-					}
+						usleep(1000000);
+						loop=0;
+					}					
 					break;
 				case 2:
 					//water
@@ -101,19 +104,16 @@ int main( int argc, char * argv[] ) {
 					// Go back to living room
 				
 					// Draw the image on screen
-					//printRAWImage ( 0, 0, 800, 600, bufferPtr );
-					printf("livingroom\n");
+					printRAWImage ( 0, 0, 800, 600, bufferPtr );
+					//printf("livingroom\n");
 					
 					// draw pet
-					// printRAWImage ( 400, 500, 130, 130, pet );
-					// free( pet );
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 
-					//display water bowl
-					//unsigned char * waterbowl = readRAWImage( "dogwater.bmp", 54 );
-					   
 					// Draw the image on screen
-					//printRAWImage ( 600, 500, 80, 80, waterbowl );
-					//free( waterbowl );
+					printRAWImage ( 600, 500, 80, 80, waterbowl );
+					free( waterbowl );
 
 
 					//increment water bar by +20px each time it is clicked
@@ -124,7 +124,9 @@ int main( int argc, char * argv[] ) {
 						gfx_color(255, 0, 0);
 						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
-						return 0;
+						usleep(1000000);
+						loop=0;
+					
 					}
 					break;
 				case 3:
@@ -133,19 +135,16 @@ int main( int argc, char * argv[] ) {
 					// Go back to living room
 				
 					// Draw the image on screen
-					//printRAWImage ( 0, 0, 800, 600, bufferPtr );
-					printf("livingroom\n");
+					printRAWImage ( 0, 0, 800, 600, bufferPtr );
+					//printf("livingroom\n");
 				
 					//draw pet
-					// printRAWImage ( 400, 500, 130, 130, pet );
-					// free( pet );
-
-					//display toys
-					//unsigned char * toys = readRAWImage( "dogtoy.bmp", 54 );
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 					   
 					// Draw the image on screen
-					//printRAWImage ( 600, 500, 80, 80, toys );
-					//free( toys );
+					printRAWImage ( 600, 500, 80, 80, toys );
+					free( toys );
 
 
 					//increment play bar by +20px each time it is clicked
@@ -160,22 +159,31 @@ int main( int argc, char * argv[] ) {
 					currentbarstatus[1] = newwater;
 					newsleep = sleepbardec(currentbarstatus[4]);
 					currentbarstatus[4] = newsleep;
+					newclean = cleanbardec(currentbarstatus[3]);
+					currentbarstatus[3] = newclean;
 
 					
-					if (new<=0) {
+					if (newfood==-1 || newwater==-1 || newsleep==-1) {
 						gfx_clear();
 						gfx_color(255, 0, 0);
 						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
-						return 0;
-					}
+						usleep(1000000);
+						loop=0;
+
+					}				
 					break;
 				case 4:
 					//clean
 
+					//draw bathroom
+					//unsigned char *bathroom = readRAWImage("bathroom.bmp", 54);
+					//printRAWImage (0, 0, 800, 600, bathroom);
+					//free(bathroom);
+
 					//draw pet
-					// printRAWImage ( 400, 500, 130, 130, pet );
-					// free( pet );
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 
 					//when cleaned, fill clean bar
 					new=cleanbarinc(currentbarstatus[3]);
@@ -185,8 +193,10 @@ int main( int argc, char * argv[] ) {
 						gfx_color(255, 0, 0);
 						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
-						return 0;
+						usleep(1000000);
+						loop=0;
 					}
+											
 					break;
 				case 5:
 					//sleep
@@ -202,13 +212,12 @@ int main( int argc, char * argv[] ) {
 					//free( dark );
 					
 					// draw pet
-					// printRAWImage ( 400, 500, 130, 130, pet );
-					// free( pet );
+					printRAWImage ( 400, 500, 130, 130, pet );
+					free( pet );
 
 					//when sleep, fill sleep bar
 					new = sleepbarinc(currentbarstatus[4]);
 					currentbarstatus[4] = new;
-
 
 					//decrement food, water, mood by -20px
 					newfood = foodbardec(currentbarstatus[0]);
@@ -218,13 +227,15 @@ int main( int argc, char * argv[] ) {
 					newmood = moodbardec(currentbarstatus[2]);
 					currentbarstatus[2] = newmood;
 
-					if (new<=0) {
+					if (newfood==-1 || newwater==-1 || newmood==-1) {
 						gfx_clear();
 						gfx_color(255, 0, 0); //RED
 						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
-						return 0;
+						usleep(1000000);
+						loop=0;
 					}
+	
 					break;
 				case 6:
 					//quit
@@ -289,14 +300,13 @@ void drawmenu() {
 	printRAWImage ( 929, 444, 84, 57, (char *) play );
 	printRAWImage ( 837, 444, 84, 57, (char *) clean );
 	printRAWImage ( 837, 507, 84, 57, (char *) sleep );
-
+ 
 	//label
 	gfx_color(0, 0, 0);
 	gfx_changefont("lucidasans-bold-18");
 	xpos=830+((190-w)/2);
 	gfx_text(xpos, 370, "MENU");
-   	
-
+   
 	//buttons
 	//button boxes
 	gfx_color(255, 255, 255);
@@ -416,14 +426,13 @@ void currentbars(int current[]) {
 int foodbarinc(int status) {
 
    	int inc; //amount to increment
-	int newstatus;
 
 	//display pet eating
 	
 
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0
+	if (status<=0) {   //pet dies if bar reaches 0   we dont need this!
 	   	gfx_cleararea(853, 83, 144, 14);
 		return 0; //?
 	}
@@ -432,98 +441,81 @@ int foodbarinc(int status) {
 	   	inc=144/10;
 			if (status+inc>=144) { //if bar value goes over 144, just set to 144
 				gfx_fill_rectangle(853, 83, 144, 14);
+				return 144;
 	   		}
 		   	else if (status+inc<144 && status+inc>0.33*144) {
 			   	gfx_cleararea(853, 83, 144, 14);
-	     	 	gfx_fill_rectangle(853, 83, inc+status, 14);
+	     	 		gfx_fill_rectangle(853, 83, inc+status, 14);
+				return status+inc;
 			}
 			else if (status+inc<0.33*144 && status+inc>0) {
 			   	gfx_color(255, 51, 51);   //red
 			   	gfx_cleararea(853, 83, 144, 14);
 			   	gfx_fill_rectangle(853, 83, inc+status, 14);
+				return status+inc;
 			}
 	}
-
-	newstatus=status+inc;
-
-	return newstatus;
 
 }
 
 int waterbarinc(int status) {
 
    	int inc; //amount to increment
-	int newstatus;
 
 	//display pet drinking
 	
 
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0
-	   	gfx_cleararea(853, 133, 144, 14);
-		return 0; //?
+
+        //increment water bar after eating
+        inc=144/10;
+	if (status+inc>=144) { //if bar value goes over 144, just set to 144
+		gfx_fill_rectangle(853, 133, 144, 14);
+		return 144;
+	 }
+	else if (status+inc<144 && status+inc>0.33*144) {
+		gfx_cleararea(853, 133, 144, 14);
+		gfx_fill_rectangle(853, 133, inc+status, 14);
+		return status+inc;
+
 	}
-	else {
-	   	//increment water bar after eating
-	   	inc=144/10;
-			if (status+inc>=144) { //if bar value goes over 144, just set to 144
-				gfx_fill_rectangle(853, 133, 144, 14);
-	   		}
-		   	else if (status+inc<144 && status+inc>0.33*144) {
-
-			   	gfx_cleararea(853, 133, 144, 14);
-	     	 	gfx_fill_rectangle(853, 133, inc+status, 14);
-
-			}
-			else if (status+inc<0.33*144 && status+inc>0) {
-			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 133, 144, 14);
-			   	gfx_fill_rectangle(853, 133, inc+status, 14);
-			}
+	else if (status+inc<0.33*144 && status+inc>0) {
+		gfx_color(255, 51, 51);   //red
+		gfx_cleararea(853, 133, 144, 14);
+		gfx_fill_rectangle(853, 133, inc+status, 14);
+		return -1;
 	}
-
-	newstatus=status+inc;
-
-	return newstatus;
-
 }
+
+
 
 int moodbarinc(int status) {
 
    	int inc; //amount to increment
-	int newstatus;
 
 	//display pet playing
 	
 
 	gfx_color(51, 255, 255);  //blue
-
-	if (status<=0) {   //pet dies if bar reaches 0
-	   	gfx_cleararea(853, 183, 144, 14);
-		return 0; //?
+        
+	//increment mood bar after playing
+	inc=144/10;
+	if (status+inc>=144) { //if bar value goes over 144, just set to 144
+	  gfx_fill_rectangle(853, 183, 144, 14);
+	  return 144;
 	}
-	else {
-	   	//increment mood bar after playing
-	   	inc=144/10;
-			if (status+inc>=144) { //if bar value goes over 144, just set to 144
-				gfx_fill_rectangle(853, 183, 144, 14);
-	   		}
-		   	else if (status+inc<144 && status+inc>0.33*144) {
-			   	gfx_cleararea(853, 183, 144, 14);
-	     	 	gfx_fill_rectangle(853, 183, inc+status, 14);
-			}
-			else if (status+inc<0.33*144 && status+inc>0) {
-			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 183, 144, 14);
-			   	gfx_fill_rectangle(853, 183, inc+status, 14);
-			}
+	else if (status+inc<144 && status+inc>0.33*144) {
+	  gfx_cleararea(853, 183, 144, 14);
+	  gfx_fill_rectangle(853, 183, inc+status, 14);
+	  return status+inc;
 	}
-
-
-	newstatus=status+inc;
-
-	return newstatus;
+	else if (status+inc<0.33*144 && status+inc>0) {
+	  gfx_color(255, 51, 51);   //red
+	  gfx_cleararea(853, 183, 144, 14);
+	  gfx_fill_rectangle(853, 183, inc+status, 14);
+	  return status+inc;
+	}
 
 }
 
@@ -601,237 +593,192 @@ int cleanbarinc(int status) {
 
    	int inc; //amount to increment
 
-	int newstatus;
-
 	// Read the image data into memory
-	//unsigned char * bufferPtr = readRAWImage( "bathroom.bmp", 54 ); //changes background to bathroom
-	printf("bathroom\n"); 
+	unsigned char *bathroom = readRAWImage( "bathroom.bmp", 54 ); //changes background to bathroom
+	//printf("bathroom\n"); 
 	// Draw the image on screen
-	//printRAWImage ( 0, 0, 800, 600, (char *) bufferPtr );
+	printRAWImage ( 0, 0, 800, 600, bathroom);
 
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0
-	   	gfx_cleararea(853, 233, 144, 14);
-		return 0; 
-	}
-	else {
-	   	//increment clean bar after cleaning
-	   	 inc=144-(status);
-			if (status+inc>=144) { //if bar value goes over 144, just set to 144
-				gfx_fill_rectangle(853, 233, 144, 14);
-	   		}
-		   	else if (status+inc<144 && status+inc>0.33*144) {
-			   	gfx_cleararea(853, 233, 144, 14);
-	     	 	gfx_fill_rectangle(853, 233, 144, 14); //fill up bar
-			}
-			else if (status+inc<0.33*144 && status+inc>0) {
-			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 233, 144, 14);
-			   	gfx_fill_rectangle(853, 233, 144, 14); //fill up bar
-			}
-	}
 
-	newstatus=status+inc;
-
-	return newstatus;
+	//increment clean bar after cleaning
+	inc=144-(status);
+	if (status+inc>=144) { //if bar value goes over 144, just set to 144
+		gfx_fill_rectangle(853, 233, 144, 14);
+		return 144;
+	}
+	else if (status+inc<144 && status+inc>0.33*144) {
+		gfx_cleararea(853, 233, 144, 14);
+		gfx_fill_rectangle(853, 233, 144, 14); //fill up bar
+		return status+inc;
+	}
+	else if (status+inc<0.33*144 && status+inc>0) {
+		gfx_color(255, 51, 51);   //red
+		gfx_cleararea(853, 233, 144, 14);
+		gfx_fill_rectangle(853, 233, 144, 14); //fill up bar
+		return status+inc;
+	}
 
 }
 
 int sleepbarinc(int status) {
 
    	int inc; //amount to increment
-	int newstatus;
 
 	//display pet sleeping
 	
-
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0
-	   	gfx_cleararea(853, 283, 144, 14);
-		return 0; //?
+	
+	//fill up sleep bar after sleeping
+	inc=144-(status);
+	if (status+inc>=144) { //if bar value goes over 144, just set to 144
+		gfx_fill_rectangle(853, 283, 144, 14);
+		return 144;
 	}
-	else {
-	   	//fill up sleep bar after sleeping
-		inc=144-(status);
-		if (status+inc>=144) { //if bar value goes over 144, just set to 144
-			gfx_fill_rectangle(853, 283, 144, 14);
-   		}
-	   	else if (status+inc<144 && status+inc>0.33*144) {
-		   	gfx_cleararea(853, 283, 144, 14);
-     	 	gfx_fill_rectangle(853, 283, 144, 14); //fill up bar
-		}
-		else if (status+inc<0.33*144 && status+inc>0) {
-		   	gfx_color(255, 51, 51);   //red
-		   	gfx_cleararea(853, 283, 144, 14);
-		   	gfx_fill_rectangle(853, 283, 144, 14); //fill up bar
-		}
+	else if (status+inc<144 && status+inc>0.33*144) {
+		gfx_cleararea(853, 283, 144, 14);
+		gfx_fill_rectangle(853, 283, 144, 14); //fill up bar
+		return status+inc;
 	}
-
-	newstatus=status+inc;
-
-	return newstatus;
+	else if (status+inc<0.33*144 && status+inc>0) {
+		gfx_color(255, 51, 51);   //red
+		gfx_cleararea(853, 283, 144, 14);
+		gfx_fill_rectangle(853, 283, 144, 14); //fill up bar
+		return status+inc;
+	}
 
 }
 
 int foodbardec(int status) {
 
    	int dec; //amount to decrement
-	int newstatus;
-	
 
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0
-	   	gfx_cleararea(853, 83, 144, 14);
-		return 0; //?
+		
+	//decrement food bar
+	dec=144/10;
+	if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+		gfx_cleararea(853, 83, 144, 14);
+		gfx_fill_rectangle(853, 83, status-dec, 14);
+		return status-dec;
 	}
-	else {
-	   	//decrement food bar
-	   	dec=144/10;
-			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
-			   	gfx_cleararea(853, 83, 144, 14);
-	     	 	gfx_fill_rectangle(853, 83, status-dec, 14);
-			}
-			else if (status-dec<0.33*144 && status-dec>0) {
-			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 83, 144, 14);
-			   	gfx_fill_rectangle(853, 83, status-dec, 14);
-			}
+	else if (status-dec<0.33*144 && status-dec>0) {
+		gfx_color(255, 51, 51);   //red
+		gfx_cleararea(853, 83, 144, 14);
+		gfx_fill_rectangle(853, 83, status-dec, 14);
+		return status-dec;
 	}
-
-	newstatus=status-dec;
-
-	return newstatus;
+	else if (status-dec<=0) {
+		return -1;
+	}
 
 }	   	
 
 int waterbardec(int status) {
 
    	int dec; //amount to decrement
-	int newstatus;
 	
 
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0
-	   	gfx_cleararea(853, 133, 144, 14);
-		return 0; //?
+	//decrement water bar
+	dec=144/10;
+	if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+		gfx_cleararea(853, 133, 144, 14);
+		gfx_fill_rectangle(853, 133, status-dec, 14);
+		return status-dec;
 	}
-	else {
-	   	//decrement water bar
-	   	dec=144/10;
-			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
-			   	gfx_cleararea(853, 133, 144, 14);
-	     	 	gfx_fill_rectangle(853, 133, status-dec, 14);
-			}
-			else if (status-dec<0.33*144 && status-dec>0) {
-			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 133, 144, 14);
-			   	gfx_fill_rectangle(853, 133, status-dec, 14);
-			}
+	else if (status-dec<0.33*144 && status-dec>0) {
+		gfx_color(255, 51, 51);   //red
+		gfx_cleararea(853, 133, 144, 14);
+		gfx_fill_rectangle(853, 133, status-dec, 14);
+		return status-dec;
+	}
+	else if (status-dec<=0) {
+		return -1;
 	}
 
-	newstatus=status-dec;
+	}
 
-	return newstatus;
-
-}	   	
 
 int moodbardec(int status) {
 
    	int dec; //amount to decrement
-	int newstatus;
-	
 
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0
-	   	gfx_cleararea(853, 183, 144, 14);
-		return 0; //?
-	}
-	else {
-	   	//decrement mood bar
-	   	dec=144/10;
-			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
-				gfx_cleararea(853, 183, 144, 14);
-	     	 	gfx_fill_rectangle(853, 183, status-dec, 14);
-			}
-			else if (status-dec<0.33*144 && status-dec>0) {
-			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 183, 144, 14);
-			   	gfx_fill_rectangle(853, 183, status-dec, 14);
-			}
-	}
 
-	newstatus=status-dec;
-
-	return newstatus;
+	//decrement mood bar
+	dec=144/10;
+	if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+		gfx_cleararea(853, 183, 144, 14);
+		gfx_fill_rectangle(853, 183, status-dec, 14);
+		return status-dec;
+	}
+	else if (status-dec<0.33*144 && status-dec>0) {
+		gfx_color(255, 51, 51);   //red
+		gfx_cleararea(853, 183, 144, 14);
+		gfx_fill_rectangle(853, 183, status-dec, 14);
+		return status-dec;
+	}
+	else if (status-dec<=0) {
+		return -1;
+	}
 
 }	   	
 
 int cleanbardec(int status) {
 
    	int dec; //amount to decrement
-	int newstatus;
-	
 
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0
-	   	gfx_cleararea(853, 233, 144, 14);
-		return 0; 
+	//decrement clean bar
+	dec=144/10;
+	
+	if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+		gfx_cleararea(853, 233, 144, 14);
+		gfx_fill_rectangle(853, 233, status-dec, 14);
+		return status-dec;
 	}
-	else {
-	   	//decrement clean bar
-	   	dec=144/10;
-			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
-				gfx_cleararea(853, 233, 144, 14);
-	     	 	gfx_fill_rectangle(853, 233, status-dec, 14);
-			}
-			else if (status-dec<0.33*144 && status-dec>0) {
-			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 233, 144, 14);
-			   	gfx_fill_rectangle(853, 233, status-dec, 14);
-			}
+	else if (status-dec<0.33*144 && status-dec>0) {
+		gfx_color(255, 51, 51);   //red
+		gfx_cleararea(853, 233, 144, 14);
+		gfx_fill_rectangle(853, 233, status-dec, 14);
+		return status-dec;
+	}
+	else if (status-dec<=0) {
+		return -1;
 	}
 
-	newstatus=status-dec;
-
-	return newstatus;
-
-}	   	
+}
+   	
 
 int sleepbardec(int status) {
 
    	int dec; //amount to decrement
-	int newstatus;
-	
 
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0
-	   	gfx_cleararea(853, 283, 144, 14);
-		return 0; //?
+	//decrement sleep bar
+	dec=144/10;
+	if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
+		gfx_cleararea(853, 283, 144, 14);
+		gfx_fill_rectangle(853, 283, status-dec, 14);
+		return status-dec;
 	}
-	else {
-	   	//decrement sleep bar
-	   	dec=144/10;
-			if (status-dec<144 && status-dec>0.33*144) { //redraw bar if decremented
-			   	gfx_cleararea(853, 283, 144, 14);
-	     	 	gfx_fill_rectangle(853, 283, status-dec, 14);
-			}
-			else if (status-dec<0.33*144 && status-dec>0) {
-			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 283, 144, 14);
-			   	gfx_fill_rectangle(853, 283, status-dec, 14);
-			}
+	else if (status-dec<0.33*144 && status-dec>0) {
+		gfx_color(255, 51, 51);   //red
+		gfx_cleararea(853, 283, 144, 14);
+		gfx_fill_rectangle(853, 283, status-dec, 14);
+		return status-dec;
 	}
-
-	newstatus=status-dec;
-
-	return newstatus;
+	else if (status-dec<=0) {
+		return -1;
+	}
 
 }	   	
 
