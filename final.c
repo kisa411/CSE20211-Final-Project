@@ -417,7 +417,7 @@ int moodbarinc(int status) {
 	//display living room, pet, dog toys
 	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
 	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-	unsigned char * toys = readRAWImage( "tennisball.bmp", 54 );
+	unsigned char * toys = readRAWImage( "dogtoy24.bmp", 54 );
 
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
