@@ -132,7 +132,11 @@ int goodbye(int arr[]) {
 			gfx_changefont("font");
 			gfx_text(400, 300, "YOUR PET DIED.\n");
 			usleep(1000000);
-			return 0;
+			c=gfx_wait();
+		   	if (c) {
+		   		return 0;
+		   	}
+			// return 0;
 		}
 	}
 	return 1;
@@ -181,8 +185,8 @@ void drawmenu() {
 	unsigned char *water=readRAWImage("waterbutton.bmp", 54);
 	unsigned char *quit=readRAWImage("quit.bmp", 54);
 	unsigned char *play=readRAWImage("ball.bmp", 54);
-	unsigned char *clean=readRAWImage("bubbles-hi.bmp", 54);
-	unsigned char *sleep=readRAWImage("sleep1.bmp", 54);
+	unsigned char *clean=readRAWImage("bubbles.bmp", 54);
+	unsigned char *sleep=readRAWImage("sleeping.bmp", 54);
 
 	//big box
 	gfx_color(102, 102, 255);
