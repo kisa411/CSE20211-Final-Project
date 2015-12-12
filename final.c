@@ -3,6 +3,7 @@
 #include <unistd.h> //for 'usleep function'
 #include "gfx5.c"
 #include "gfxe.h"
+#define font -itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16
 
 void drawmenu();
 void drawstatus();
@@ -35,7 +36,7 @@ int main( int argc, char * argv[] ) {
 
 	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
 	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-					  	     
+
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
 	free(bufferPtr);
@@ -68,7 +69,7 @@ int main( int argc, char * argv[] ) {
 					if (new<=0) {
 						gfx_clear();
 						gfx_color(255, 0, 0);
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_changefont("font");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
 						usleep(1000000);
 						loop=0;
@@ -83,7 +84,7 @@ int main( int argc, char * argv[] ) {
 					if (new<=0) {
 						gfx_clear();
 						gfx_color(255, 0, 0);
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_changefont("font");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
 						usleep(1000000);
 						loop=0;
@@ -111,7 +112,7 @@ int main( int argc, char * argv[] ) {
 					if (newfood==-1 || newwater==-1 || newsleep==-1) {
 						gfx_clear();
 						gfx_color(255, 0, 0);
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_changefont("font");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
 						usleep(1000000);
 						loop=0;
@@ -127,7 +128,7 @@ int main( int argc, char * argv[] ) {
 					if (new<=0) {
 						gfx_clear();
 						gfx_color(255, 0, 0);
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_changefont("font");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
 						usleep(1000000);
 						loop=0;
@@ -152,7 +153,7 @@ int main( int argc, char * argv[] ) {
 					if (newfood==-1 || newwater==-1 || newmood==-1) {
 						gfx_clear();
 						gfx_color(255, 0, 0); //RED
-						gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
+						gfx_changefont("font");
 						gfx_text(400, 300, "YOUR PET DIED.\n");
 						usleep(1000000);
 						loop=0;
