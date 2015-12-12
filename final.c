@@ -20,9 +20,9 @@ int sleepbardec(int status);
 void initialbars();
 void currentbars(int array[]);
 int click(int xpos, int ypos);
-int goodbye(int arr[]);
 
 int main( int argc, char * argv[] ) {
+
 
 	int xpos, ypos, loop=1, action;
 	int currentbarstatus[5]={100, 100, 100, 100, 100}; //food, water, mood, clean, sleep
@@ -33,8 +33,7 @@ int main( int argc, char * argv[] ) {
 	drawmenu();
 	drawstatus();
 	initialbars();
-	
-	// Read image data into memory
+
 	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
 	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
 
@@ -62,33 +61,42 @@ int main( int argc, char * argv[] ) {
 			switch (action) {
 				case 1:
 					//food
-					//display food and pet eating
-					
+
 					//increment food bar by +20px each time it is clicked
 					new=foodbarinc(currentbarstatus[0]);
-					currentbarstatus[0] = new;
 
-					//check if pet died
-					loop=goodbye(currentstatusbar[]);									break;
+					currentbarstatus[0] = new;
+					if (new<=0) {
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
+					}					
+					break;
 				case 2:
 					//water
 
 					//increment water bar by +20px each time it is clicked
 					new=waterbarinc(currentbarstatus[1]);
 					currentbarstatus[1] = new;
-
-					//check if pet died
-					loop=goodbye(currentstatusbar);
+					if (new<=0) {
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
+					
+					}
 					break;
 				case 3:
 					//play
 					
-					// Go back to living room
-			
 					//increment play bar by +20px each time it is clicked
 					new=moodbarinc(currentbarstatus[2]);
 					currentbarstatus[2] = new;
-					// balltoy(currentbarstatus);
 
 					//decrement food, water, and sleep by -20 px
 					newfood = foodbardec(currentbarstatus[0]);
@@ -100,9 +108,16 @@ int main( int argc, char * argv[] ) {
 					newclean = cleanbardec(currentbarstatus[3]);
 					currentbarstatus[3] = newclean;
 
-					//check if pet died
-					loop=goodbye(currentstatusbar);
+					
+					if (newfood==-1 || newwater==-1 || newsleep==-1) {
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
 
+					}				
 					break;
 				case 4:
 					//clean
@@ -110,16 +125,19 @@ int main( int argc, char * argv[] ) {
 					//when cleaned, fill clean bar
 					new=cleanbarinc(currentbarstatus[3]);
 					currentbarstatus[3] = new;
-
-					//check if pet died
-					loop=goodbye(currentstatusbar);
-
+					if (new<=0) {
+						gfx_clear();
+						gfx_color(255, 0, 0);
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
+					}
+											
 					break;
 				case 5:
 					//sleep
-					//pet moves to bed and sleeps until user wakes it
-					//food, water, and fun decreases
-
+					
 					//when sleep, fill sleep bar
 					new = sleepbarinc(currentbarstatus[4]);
 					currentbarstatus[4] = new;
@@ -131,10 +149,16 @@ int main( int argc, char * argv[] ) {
 					currentbarstatus[1] = newwater;
 					newmood = moodbardec(currentbarstatus[2]);
 					currentbarstatus[2] = newmood;
-					
-					//check if pet died
-					loop=goodbye(currentstatusbar);
 
+					if (newfood==-1 || newwater==-1 || newmood==-1) {
+						gfx_clear();
+						gfx_color(255, 0, 0); //RED
+						gfx_changefont("font");
+						gfx_text(400, 300, "YOUR PET DIED.\n");
+						usleep(1000000);
+						loop=0;
+					}
+	
 					break;
 				case 6:
 					//quit
@@ -143,24 +167,6 @@ int main( int argc, char * argv[] ) {
 		   }
 	   }
    }
-}
-
-int goodbye(int arr[]) {
-
-	for (i=0; i<5; i++) {
-		if (arr[i]==-1)  {
-			gfx_clear();
-			gfx_color(255, 0, 0); //RED
-			gfx_changefont("-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16");
-			gfx_text(400, 300, "YOUR PET DIED.\n");
-			usleep(1000000);
-			loop=0;
-			return 0;
-		}
-	}
-
-	return 1;
-
 }
 
 
@@ -212,11 +218,11 @@ void drawmenu() {
 
 	//icon images
 	printRAWImage ( 837, 381, 84, 57,  food );
-	printRAWImage ( 929, 381, 84, 57, water );
-	printRAWImage ( 929, 507, 84, 57, (char *) quit );
-	printRAWImage ( 929, 444, 84, 57, (char *) play );
-	printRAWImage ( 837, 444, 84, 57, (char *) clean );
-	printRAWImage ( 837, 507, 84, 57, (char *) sleep );
+	printRAWImage ( 929, 381, 84, 57,  water );
+	printRAWImage ( 929, 507, 84, 57,  quit );
+	printRAWImage ( 929, 444, 84, 57,  play );
+	printRAWImage ( 837, 444, 84, 57,  clean );
+	printRAWImage ( 837, 507, 84, 57,  sleep );
  
 	//label
 	gfx_color(0, 0, 0);
@@ -344,8 +350,21 @@ int foodbarinc(int status) {
 
    	int inc; //amount to increment
 
-	//display pet eating
-	
+	//display living room, pet, dog food
+	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
+	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+	unsigned char * foodbowl = readRAWImage( "dogfood.bmp", 54 );
+
+	// Draw the initial living room on screen
+	printRAWImage ( 0, 0, 800, 600, bufferPtr );
+	free(bufferPtr);
+  
+	// Draw the image on screen
+	printRAWImage ( 400, 500, 130, 130, pet );
+	free( pet );
+
+	printRAWImage ( 600, 500, 80, 80, foodbowl );
+	free( foodbowl );
 
 	gfx_color(51, 255, 255);  //blue
 
@@ -379,7 +398,22 @@ int waterbarinc(int status) {
 
    	int inc; //amount to increment
 
-	//display pet drinking
+	//display living room, pet, dogbowl
+	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
+	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+	unsigned char * waterbowl = readRAWImage( "dogwater.bmp", 54 );
+
+	// Draw the initial living room on screen
+	printRAWImage ( 0, 0, 800, 600, bufferPtr );
+	free(bufferPtr);
+  
+	// Draw the image on screen
+	printRAWImage ( 400, 500, 130, 130, pet );
+	free( pet );
+
+	// Draw water bowl
+	printRAWImage ( 400, 500, 80, 80, waterbowl );
+	free( waterbowl );
 	
 
 	gfx_color(51, 255, 255);  //blue
@@ -411,7 +445,22 @@ int moodbarinc(int status) {
 
    	int inc; //amount to increment
 
-	//display pet playing
+	//display living room, pet, dog toys
+	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
+	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+	unsigned char * toys = readRAWImage( "dogtoy.bmp", 54 );
+
+	// Draw the initial living room on screen
+	printRAWImage ( 0, 0, 800, 600, bufferPtr );
+	free(bufferPtr);
+  
+	// Draw the image on screen
+	printRAWImage ( 400, 500, 130, 130, pet );
+	free( pet );
+
+	// Draw water bowl
+	printRAWImage ( 400, 500, 80, 80, toys );
+	free( toys );
 	
 
 	gfx_color(51, 255, 255);  //blue
@@ -437,16 +486,20 @@ int moodbarinc(int status) {
 }
 
 
-
 int cleanbarinc(int status) {
 
    	int inc; //amount to increment
 
 	// Read the image data into memory
 	unsigned char *bathroom = readRAWImage( "bathroom.bmp", 54 ); //changes background to bathroom
-	//printf("bathroom\n"); 
+	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+	
 	// Draw the image on screen
-	printRAWImage ( 0, 0, 800, 600, bathroom);
+	printRAWImage ( 0, 0, 800, 600,  bathroom);
+	free (bathroom);
+
+	printRAWImage ( 400, 500, 130, 130, pet );
+	free( pet );
 
 	gfx_color(51, 255, 255);  //blue
 
@@ -475,7 +528,16 @@ int sleepbarinc(int status) {
 
    	int inc; //amount to increment
 
-	//display pet sleeping
+	//display living room, pet
+	unsigned char * dark = readRAWImage( "livingroom(dark).bmp", 54 );
+	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
+
+	// Draw the image on screen
+	printRAWImage ( 400, 500, 130, 130, pet );
+	free( pet );
+
+	printRAWImage ( 0, 0, 800, 600, dark );
+	free( dark );
 	
 	gfx_color(51, 255, 255);  //blue
 
