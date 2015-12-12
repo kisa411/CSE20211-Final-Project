@@ -35,7 +35,7 @@ int main( int argc, char * argv[] ) {
 	drawstatus();
 	initialbars();
 
-	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
+	unsigned char * bufferPtr = readRAWImage( "initial.bmp", 54 );
 	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
 
 	// Draw the initial living room on screen
@@ -343,29 +343,22 @@ int foodbarinc(int status) {
 	free( foodbowl );
 
 	gfx_color(51, 255, 255);  //blue
-
-	if (status<=0) {   //pet dies if bar reaches 0   we dont need this!
-	   	gfx_cleararea(853, 83, 144, 14);
-		return 0; //?
+	//increment food bar after eating
+	inc=144/10;
+	if (status+inc>=144) { //if bar value goes over 144, just set to 144
+		gfx_fill_rectangle(853, 83, 144, 14);
+		return 144;
 	}
-	else {
-	   	//increment food bar after eating
-	   	inc=144/10;
-			if (status+inc>=144) { //if bar value goes over 144, just set to 144
-				gfx_fill_rectangle(853, 83, 144, 14);
-				return 144;
-	   		}
-		   	else if (status+inc<144 && status+inc>0.33*144) {
-			   	gfx_cleararea(853, 83, 144, 14);
-	     	 		gfx_fill_rectangle(853, 83, inc+status, 14);
-				return status+inc;
-			}
-			else if (status+inc<0.33*144 && status+inc>0) {
-			   	gfx_color(255, 51, 51);   //red
-			   	gfx_cleararea(853, 83, 144, 14);
-			   	gfx_fill_rectangle(853, 83, inc+status, 14);
-				return status+inc;
-			}
+	else if (status+inc<144 && status+inc>0.33*144) {
+		gfx_cleararea(853, 83, 144, 14);
+		gfx_fill_rectangle(853, 83, inc+status, 14);
+		return status+inc;
+	}
+	else if (status+inc<0.33*144 && status+inc>0) {
+		gfx_color(255, 51, 51);   //red
+		gfx_cleararea(853, 83, 144, 14);
+		gfx_fill_rectangle(853, 83, inc+status, 14);
+		return status+inc;
 	}
 
 }
@@ -424,7 +417,7 @@ int moodbarinc(int status) {
 	//display living room, pet, dog toys
 	unsigned char * bufferPtr = readRAWImage( "livingroom(light).bmp", 54 );
 	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
-	unsigned char * toys = readRAWImage( "dogtoy.bmp", 54 );
+	unsigned char * toys = readRAWImage( "tennisball.bmp", 54 );
 
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
@@ -509,13 +502,12 @@ int sleepbarinc(int status) {
 	unsigned char * pet = readRAWImage( "pet.bmp", 54 );
 
 	// Draw the image on screen
+
 	printRAWImage ( 0, 0, 800, 600, dark );
 	free( dark );
-	
+
 	printRAWImage ( 400, 500, 130, 130, pet );
 	free( pet );
-
-
 	
 	gfx_color(51, 255, 255);  //blue
 
@@ -590,7 +582,7 @@ int waterbardec(int status) {
 		return -1;
 	}
 
-	}
+}
 
 
 int moodbardec(int status) {
