@@ -3,7 +3,7 @@
 #include <unistd.h> //for 'usleep function'
 #include "gfx5.c"
 #include "gfxe.h"
-#define font -itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16
+#define font "-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16"
 
 void drawmenu();
 void drawstatus();
