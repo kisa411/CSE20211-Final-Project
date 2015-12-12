@@ -344,11 +344,8 @@ int foodbarinc(int status) {
 
 	gfx_color(51, 255, 255);  //blue
 
-	if (status<=0) {   //pet dies if bar reaches 0   we dont need this!
-	   	gfx_cleararea(853, 83, 144, 14);
-		return 0; //?
-	}
-	else {
+
+
 	   	//increment food bar after eating
 	   	inc=144/10;
 			if (status+inc>=144) { //if bar value goes over 144, just set to 144
