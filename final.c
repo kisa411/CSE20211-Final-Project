@@ -132,7 +132,11 @@ int goodbye(int arr[]) {
 			gfx_changefont("font");
 			gfx_text(400, 300, "YOUR PET DIED.\n");
 			usleep(1000000);
-			return 0;
+			c=gfx_wait();
+		   	if (c) {
+		   		return 0;
+		   	}
+			// return 0;
 		}
 	}
 	return 1;
