@@ -49,7 +49,7 @@ int main( int argc, char * argv[] ) {
 	    c=gfx_wait();
 	    gfx_wait();
 
-	    if (c==1) {    //return for left click
+	    if (c==1) { //return for left click
 		    xpos=gfx_xpos();
 		    ypos=gfx_ypos();
 
@@ -157,7 +157,7 @@ int goodbye(int arr[]) {
 			gfx_color(255, 0, 0); //RED
 			gfx_changefont(font);
 			gfx_text(400, 300, "YOUR PET DIED");
-			gfx_text(450, 350, "(press 'q' to exit)");
+			//gfx_text(450, 350, "(press 'q' to exit)");
 			while (loop) {
 				if (gfx_event_waiting()) {
 					c=gfx_wait();
