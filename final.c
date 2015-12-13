@@ -37,25 +37,48 @@ int main( int argc, char * argv[] ) {
 	drawstatus();
 	initialbars();
 
-	unsigned char * bufferPtr = readRAWImage( "initialpet.data", 0 );
+	// Draw the opening screen picture
+	unsigned char * openingScreen = readRAWImage( "____.data", 0 );
 
-	// Draw the initial living room on screen
-	printRAWImage ( 0, 0, 800, 600, bufferPtr );
-	free(bufferPtr);
+	printRAWImage ( 0, 0, 800, 600, openingScreen );
+	free( openingScreen );
+
+	// If user clicks on start game button 
+	if (gfx_event_waiting()) {
+
+	    c=gfx_wait();
+	    gfx_wait();
+
+	    if (c==1) {    //return for left click
+		    xpos=gfx_xpos();
+		    ypos=gfx_ypos();
+
+		    if (xpos >= 300 && xpos <= 500) {//assuming start button picture is 300, 400 and picture is 200 x 100
+		    	if (ypos >= 400 && ypos <= 500) {
+
+					unsigned char * bufferPtr = readRAWImage( "initialpet.data", 0 );
+
+					// Draw the initial living room on screen
+					printRAWImage ( 0, 0, 800, 600, bufferPtr );
+					free(bufferPtr);
+				}
+			}
+		}
+	}
   
 
 	while (loop) {
 
-	   if (gfx_event_waiting()) {
+	    if (gfx_event_waiting()) {
 
-		   c=gfx_wait();
-		   gfx_wait();
+		    c=gfx_wait();
+		    gfx_wait();
+ 
+		    if (c==1) {    //return for left click
+			    xpos=gfx_xpos();
+			    ypos=gfx_ypos();
 
-		   if (c==1) {    //return for left click
-			   xpos=gfx_xpos();
-			   ypos=gfx_ypos();
-
-			   action=click(xpos, ypos); 
+			    action=click(xpos, ypos); 
 			  
 			switch (action) {
 				case 1:
