@@ -35,7 +35,7 @@ int main( int argc, char * argv[] ) {
 	drawstatus();
 	initialbars();
 
-	unsigned char * bufferPtr = readRAWImage( "initialpet.bmp", 138 );
+	unsigned char * bufferPtr = readRAWImage( "initialpet.data", 0 );
 
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, bufferPtr );
@@ -134,7 +134,7 @@ int goodbye(int arr[]) {
 			gfx_text(400, 300, "YOUR PET DIED");
 			usleep(100000);
 			c=gfx_wait();
-		   	if (c) {
+			if (c=='q') {
 		   		return 0;
 		   	}
 		}
@@ -181,12 +181,12 @@ void drawmenu() {
 	int w=gfx_textpixelwidth("MENU", "lucidasans-bold-18");
 	float xpos;
 	int a, b, c, d, e, f;
-	unsigned char *food=readRAWImage("foodbutton.bmp", 138);
-	unsigned char *water=readRAWImage("waterbutton.bmp", 138);
-	unsigned char *quit=readRAWImage("quit.bmp", 138);
-	unsigned char *play=readRAWImage("ball.bmp", 138);
-	unsigned char *clean=readRAWImage("bubbles.bmp", 138);
-	unsigned char *sleep=readRAWImage("sleeping.bmp", 138);
+	unsigned char *food=readRAWImage("foodbutton.data", 0);
+	unsigned char *water=readRAWImage("waterbutton.data", 0);
+	unsigned char *quit=readRAWImage("quit.data", 0);
+	unsigned char *play=readRAWImage("ball.data", 0);
+	unsigned char *clean=readRAWImage("bubbles.data", 0);
+	unsigned char *sleep=readRAWImage("sleeping.data", 0);
 
 	//big box
 	gfx_color(102, 102, 255);
@@ -327,7 +327,7 @@ int foodbarinc(int status) {
    	int inc; //amount to increment
 
 	//display living room, pet, dog food
-	unsigned char * food = readRAWImage( "food.bmp", 138 );
+	unsigned char * food = readRAWImage( "food1.data", 0 );
 
 	// Draw food picture
 	printRAWImage ( 0, 0, 800, 600, food );
@@ -361,7 +361,7 @@ int waterbarinc(int status) {
    	int inc; //amount to increment
 
 	//display living room, pet, dogbowl
-	unsigned char * water = readRAWImage( "water.bmp", 138 );
+	unsigned char * water = readRAWImage( "water.data", 0 );
 
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, water );
@@ -398,7 +398,7 @@ int moodbarinc(int status) {
 
 	//display living room, pet, dog toys
 
-	unsigned char * toys = readRAWImage( "toys.bmp", 138 );
+	unsigned char * toys = readRAWImage( "toys.data", 0 );
 
 	// Draw the initial living room on screen
 	printRAWImage ( 0, 0, 800, 600, toys );
@@ -432,7 +432,7 @@ int cleanbarinc(int status) {
    	int inc; //amount to increment
 
 	// Read the image data into memory
-	unsigned char *clean = readRAWImage( "clean.bmp", 138 ); //changes background to bathroom
+	unsigned char *clean = readRAWImage( "clean.data", 0 ); //changes background to bathroom
 
 	printRAWImage ( 0, 0, 800, 600, clean );
 	free ( clean );
@@ -465,7 +465,7 @@ int sleepbarinc(int status) {
    	int inc; //amount to increment
 
 	//display living room, pet
-	unsigned char * dark = readRAWImage( "sleep.bmp", 138 );
+	unsigned char * dark = readRAWImage( "sleep.data", 0 );
 
 	// Draw the image on screen
 	printRAWImage ( 0, 0, 800, 600, dark );
