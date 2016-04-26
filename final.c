@@ -3,7 +3,7 @@
 #include <unistd.h> //for 'usleep function'
 #include "gfx5.c"
 #include "gfxe.h"
-#define font "-itc-american typewriter-medium-r-normal--0-0-0-0-p-0-iso8859-16"
+
 
 void drawmenu();
 void drawstatus();
@@ -25,47 +25,40 @@ int goodbye(int arr[]);
 int main( int argc, char * argv[] ) {
 
 
-	int xpos, ypos, loop=1, action;
+	int xpos, ypos, loop=1, startloop=1, action;
 	int currentbarstatus[5]={100, 100, 100, 100, 100}; //food, water, mood, clean, sleep
 	int c;
 	int new, newfood, newwater, newmood, newsleep, newclean;
 	gfx_open(1050, 600, "TAMAGOTCHI - Borah & Emily");
 
-
-
-	drawmenu();
-	drawstatus();
-	initialbars();
-
 	// Draw the opening screen picture
-	unsigned char * openingScreen = readRAWImage( "____.data", 0 );
+	unsigned char * openingScreen = readRAWImage( "start.data", 0 );
 
-	printRAWImage ( 0, 0, 800, 600, openingScreen );
+	printRAWImage ( 0, 0, 1050, 600, openingScreen );
 	free( openingScreen );
 
-	// If user clicks on start game button 
-	if (gfx_event_waiting()) {
+	while(startloop) {	
 
-	    c=gfx_wait();
-	    gfx_wait();
+		// If user clicks on start game button 
+		if (gfx_event_waiting()) {
 
-	    if (c==1) { //return for left click
-		    xpos=gfx_xpos();
-		    ypos=gfx_ypos();
+			c=gfx_wait();
+			gfx_wait();
 
-		    if (xpos >= 300 && xpos <= 500) {//assuming start button picture is 300, 400 and picture is 200 x 100
-		    	if (ypos >= 400 && ypos <= 500) {
-
-					unsigned char * bufferPtr = readRAWImage( "initialpet.data", 0 );
-
-					// Draw the initial living room on screen
-					printRAWImage ( 0, 0, 800, 600, bufferPtr );
-					free(bufferPtr);
-				}
+			if (c==1) { //return for left click
+				gfx_clear();
+				unsigned char * bufferPtr = readRAWImage( "initialpet.data", 0 );
+				// Draw the initial living room on screen
+				printRAWImage ( 0, 0, 800, 600, bufferPtr );
+				free(bufferPtr);
+				drawmenu();
+				drawstatus();
+				initialbars();
+				startloop=0;
 			}
 		}
+
 	}
-  
 
 	while (loop) {
 
@@ -149,26 +142,28 @@ int main( int argc, char * argv[] ) {
 int goodbye(int arr[]) {
 
 	int i, loop=1;
-	char c;
+	int c;
 
 	for (i=0; i<5; i++) {
 		if (arr[i]==-1) {
 			gfx_clear();
-			gfx_color(255, 0, 0); //RED
-			gfx_changefont(font);
-			gfx_text(400, 300, "YOUR PET DIED");
-			//gfx_text(450, 350, "(press 'q' to exit)");
-			while (loop) {
+			while (loop) {	
+				gfx_color(255, 0, 0); //RED
+				gfx_changefont("lucidasans-bold-18");
+				gfx_text(400, 300, "YOUR PET DIED");
+				gfx_text(400, 350, "(click to exit)");
 				if (gfx_event_waiting()) {
+					gfx_wait();
 					c=gfx_wait();
-					if (c=='q') {
-		   				return 0;
+					if (c==1) {
+						loop=0;
 					}
 		   		}
 			}
 		}
 	}
-	return 1;
+
+	return loop;
 }
 
 
