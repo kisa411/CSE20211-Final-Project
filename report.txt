@@ -1,0 +1,23 @@
+The purpose of this project was to create a simulation of the game "Tamagotchi".
+From the programmer's perspective, there are different functions for incrementing 
+each status bar as well as for decrementing each status bar. There are also functions
+that display the appropriate graphics, and there is also a function to check if any 
+of the bars have gone down to 0 (aka. to check if the game should end). We also had
+functions to display our menu and status bar, and another function that would 
+return a specific value depending on where the user clicked. The bulk of 
+our project was dealing with the graphics and making sure that the right pictures 
+showed up for each scene. Inside main, we have a swich-case statement to control 
+which screen is displayed depending on where the user clicks. 
+
+From the user's perspective, the screen initially displays an intro scene where it 
+says click to continue. Once the user clicks anywhere on the screen, the user can
+then chose to feed, water, play, clean, or sleep. For each button the image will
+change and the status bars will be adjusted accordingly. There is also a quit button
+if the user ever wants to quit. If any of the bars end up reaching 0, the pet will 
+die, and an ending scene that displays "YOUR PET DIED" shows up, and if you click
+the program ends. We wanted to add more animations of the pet, but because the 
+images loaded so slowly, we could not. 
+
+We verified the program's correctness by testing it multiple times. We made sure the 
+goodbye scene displayed properly each time a bar reached 0, and we made sure that the
+bars adjusted properly. Sometimes the images show up very slowly. 
